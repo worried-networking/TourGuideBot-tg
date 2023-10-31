@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2023-07-24 13:05\n"
+"PO-Revision-Date: 2023-10-31 21:28\n"
 
 #: tour_guide_bot/cli.py:55
 msgctxt "cli"
@@ -265,42 +265,42 @@ msgctxt "admin-revoke"
 msgid "Enter the phone number from which you want to revoke access to the tour (with country code) or share the contact. Send /cancel at any time if you wish to cancel."
 msgstr "Введите номер телефона, для которого вы хотите отменить доступ к экскурсии (с кодом страны), или поделитесь контактом. Отправьте /cancel в любое время, если вы хотите прервать операцию."
 
-#: tour_guide_bot/bot/admin/start.py:84
+#: tour_guide_bot/bot/admin/start.py:85
 msgctxt "admin-bot-start"
 msgid "Share phone number"
 msgstr "Поделиться номером телефона"
 
-#: tour_guide_bot/bot/admin/start.py:97
+#: tour_guide_bot/bot/admin/start.py:98
 msgctxt "admin-bot-start"
 msgid "Please send me your contact number and not somebody else's."
 msgstr "Мне нужен ваш номер телефона, а не кого-то из ваших знакомых."
 
-#: tour_guide_bot/bot/admin/start.py:118 tour_guide_bot/bot/admin/start.py:152
+#: tour_guide_bot/bot/admin/start.py:119 tour_guide_bot/bot/admin/start.py:156
 msgctxt "admin-bot-start"
 msgid "Admin permissions confirmed! Use /help command if you need further help."
 msgstr "Права администратора подтверждены! Отправьте /help для дальнейшей помощи."
 
-#: tour_guide_bot/bot/admin/start.py:134 tour_guide_bot/bot/admin/start.py:240
+#: tour_guide_bot/bot/admin/start.py:135 tour_guide_bot/bot/admin/start.py:244
 msgctxt "admin-bot-start"
-msgid "I don't think you're in the right place. Please send me the token to confirm ownership."
-msgstr "Я не уверен, что вы выбрали правильного бота. Пожалуйста, отправьте мне токен, чтобы подтвердить ваши права."
+msgid "I don't think you're in the right place. Please send me the md5 hash of the token to confirm ownership."
+msgstr ""
 
-#: tour_guide_bot/bot/admin/start.py:167
+#: tour_guide_bot/bot/admin/start.py:171
 msgctxt "admin-bot-start"
 msgid "I still don't recognize you, sorry. Try saying /admin again when you're ready."
 msgstr "Я до сих пор не знаю Вас, извините. Попробуйте сказать /admin снова, когда будете готовы повторить."
 
-#: tour_guide_bot/bot/admin/start.py:178
+#: tour_guide_bot/bot/admin/start.py:182
 msgctxt "admin-bot-start"
 msgid "You're in guest mode now, bye!"
 msgstr "Теперь вы в гостевом режиме!"
 
-#: tour_guide_bot/bot/admin/start.py:196 tour_guide_bot/bot/admin/start.py:226
+#: tour_guide_bot/bot/admin/start.py:200 tour_guide_bot/bot/admin/start.py:230
 msgctxt "admin-bot-start"
 msgid "Welcome to the admin mode!"
 msgstr "Добро пожаловать в режим администратора!"
 
-#: tour_guide_bot/bot/admin/start.py:210
+#: tour_guide_bot/bot/admin/start.py:214
 msgctxt "admin-bot-start"
 msgid "I don't recognize you! Please send me your phone number."
 msgstr "Я вас не узнаю! Пожалуйста, отправьте мне ваш номер телефона."
