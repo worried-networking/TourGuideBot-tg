@@ -18,7 +18,7 @@ license = "Apache-2.0"
 python = "^3.12.0"
 python-telegram-bot = { version = "^21.9", allow-prereleases = true, extras = ["job-queue"] }
 Babel = "^2.16.0"
-SQLAlchemy = { extras = ["asyncio", "aiomysql", "aiosqlite", "postgresql_asyncpg"], version = "^2.0.36" }
+SQLAlchemy = { extras = ["asyncio", "aiomysql", "aiosqlite", "postgresql_asyncpg"], version = "^2.0.37" }
 alembic = "^1.14.0"
 psycopg2-binary = "^2.9.10"
 ffmpeg-python = "^0.2.0"
