@@ -20,6 +20,7 @@ from telegram.warnings import PTBUserWarning
 
 from tour_guide_bot import log, set_fallback_locale, t
 from tour_guide_bot.bot.app import Application
+from tour_guide_bot.helpers.update_processor import PerUserUpdateProcessor
 from tour_guide_bot.web import routes
 
 
@@ -38,7 +39,9 @@ def prepare_app(
     )
 
     builder = (
-        application_class.builder().token(guide_bot_token).concurrent_updates(True)
+        application_class.builder()
+        .token(guide_bot_token)
+        .concurrent_updates(PerUserUpdateProcessor(256))
     )
     if request:
         builder.request(request)

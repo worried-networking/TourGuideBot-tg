@@ -12,9 +12,6 @@ from .conftest import get_phone_number_request
 # Long enough for the next message to reach the bot while set_my_commands is
 # still running, short enough to leave room in the 10s conversation timeout.
 SLOW = 2
-# The user may see a reply before the bot's sendMessage call returns, so the
-# state can only be expected to be stored after a short, human-like pause.
-REACTION = 0.5
 
 
 def slow_start(mocker, factory):
@@ -41,7 +38,6 @@ async def test_command_right_after_admin_welcome_is_handled_in_admin_mode(
         "Unexpected message in response to the admin mode switch"
     )
 
-    await asyncio.sleep(REACTION)
     await conversation.send_message("/configure")
     response = await conversation.get_response()
     assert "Please select the parameter you want to change" in response.message, (
@@ -69,7 +65,6 @@ async def test_command_right_after_guest_auth_reply_is_handled_as_guest(
         in response.message
     ), "Unexpected response to a user without tours"
 
-    await asyncio.sleep(REACTION)
     await conversation.send_message("/tours")
     response = await conversation.get_response()
     assert "Unknown command" not in response.message, (
