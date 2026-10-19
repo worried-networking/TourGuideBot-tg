@@ -270,7 +270,7 @@ msgctxt "admin-bot-start"
 msgid "Please send me your contact number and not somebody else's."
 msgstr ""
 
-#: tour_guide_bot/bot/admin/start.py:119 tour_guide_bot/bot/admin/start.py:156
+#: tour_guide_bot/bot/admin/start.py:126 tour_guide_bot/bot/admin/start.py:163
 msgctxt "admin-bot-start"
 msgid "Admin permissions confirmed! Use /help command if you need further help."
 msgstr ""
@@ -289,12 +289,12 @@ msgid ""
 "ready."
 msgstr ""
 
-#: tour_guide_bot/bot/admin/start.py:182
+#: tour_guide_bot/bot/admin/start.py:189
 msgctxt "admin-bot-start"
 msgid "You're in guest mode now, bye!"
 msgstr ""
 
-#: tour_guide_bot/bot/admin/start.py:200 tour_guide_bot/bot/admin/start.py:230
+#: tour_guide_bot/bot/admin/start.py:207 tour_guide_bot/bot/admin/start.py:237
 msgctxt "admin-bot-start"
 msgid "Welcome to the admin mode!"
 msgstr ""
@@ -1051,7 +1051,7 @@ msgctxt "guest-bot-start"
 msgid "Please send me your contact number and not somebody else's."
 msgstr ""
 
-#: tour_guide_bot/bot/guide/start.py:134
+#: tour_guide_bot/bot/guide/start.py:138
 msgctxt "guest-bot-start"
 msgid ""
 "I see you have a tour available; thank you for the support! Send /tours "
@@ -1062,7 +1062,7 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: tour_guide_bot/bot/guide/start.py:147 tour_guide_bot/bot/guide/tours.py:436
+#: tour_guide_bot/bot/guide/start.py:151 tour_guide_bot/bot/guide/tours.py:436
 msgctxt "guest-tour"
 msgid ""
 "Unfortunately, no tours are available for you at the moment. Approving "

@@ -115,19 +115,19 @@ class StartCommandHandler(BaseHandlerCallback):
         await self.db_session.commit()
 
         if admin:
+            await BotCommandsFactory.start(
+                update.get_bot(),
+                user,
+                await self.get_language(update, context),
+                self.db_session,
+            )
+
             await update.message.reply_text(
                 t(user.language).pgettext(
                     "admin-bot-start",
                     "Admin permissions confirmed! Use /help command if you need further help.",
                 ),
                 reply_markup=ReplyKeyboardRemove(),
-            )
-
-            await BotCommandsFactory.start(
-                update.get_bot(),
-                user,
-                await self.get_language(update, context),
-                self.db_session,
             )
             return self.STATE_ADMIN_MODE_ACTIVE
         else:
@@ -152,18 +152,18 @@ class StartCommandHandler(BaseHandlerCallback):
             self.db_session.add_all([admin, user])
             await self.db_session.commit()
 
-            await update.message.reply_text(
-                t(user.language).pgettext(
-                    "admin-bot-start",
-                    "Admin permissions confirmed! Use /help command if you need further help.",
-                )
-            )
-
             await BotCommandsFactory.start(
                 update.get_bot(),
                 user,
                 await self.get_language(update, context),
                 self.db_session,
+            )
+
+            await update.message.reply_text(
+                t(user.language).pgettext(
+                    "admin-bot-start",
+                    "Admin permissions confirmed! Use /help command if you need further help.",
+                )
             )
             return self.STATE_ADMIN_MODE_ACTIVE
         else:
@@ -178,17 +178,17 @@ class StartCommandHandler(BaseHandlerCallback):
 
     async def exit_admin_mode(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         user = await self.get_user(update, context)
-        await update.message.reply_text(
-            t(user.language).pgettext(
-                "admin-bot-start", "You're in guest mode now, bye!"
-            )
-        )
-
         await GuestBotCommandsFactory.start(
             update.get_bot(),
             user,
             await self.get_language(update, context),
             self.db_session,
+        )
+
+        await update.message.reply_text(
+            t(user.language).pgettext(
+                "admin-bot-start", "You're in guest mode now, bye!"
+            )
         )
         return ConversationHandler.END
 
@@ -196,17 +196,17 @@ class StartCommandHandler(BaseHandlerCallback):
         user = await self.get_user(update, context)
 
         if user.admin:
-            await update.message.reply_text(
-                t(user.language).pgettext(
-                    "admin-bot-start", "Welcome to the admin mode!"
-                )
-            )
-
             await BotCommandsFactory.start(
                 update.get_bot(),
                 user,
                 await self.get_language(update, context),
                 self.db_session,
+            )
+
+            await update.message.reply_text(
+                t(user.language).pgettext(
+                    "admin-bot-start", "Welcome to the admin mode!"
+                )
             )
             return self.STATE_ADMIN_MODE_ACTIVE
         elif not user.phone:
@@ -226,17 +226,17 @@ class StartCommandHandler(BaseHandlerCallback):
                 user.admin = admin
                 self.db_session.add(user)
                 await self.db_session.commit()
-                await update.message.reply_text(
-                    t(user.language).pgettext(
-                        "admin-bot-start", "Welcome to the admin mode!"
-                    )
-                )
-
                 await BotCommandsFactory.start(
                     update.get_bot(),
                     user,
                     await self.get_language(update, context),
                     self.db_session,
+                )
+
+                await update.message.reply_text(
+                    t(user.language).pgettext(
+                        "admin-bot-start", "Welcome to the admin mode!"
+                    )
                 )
                 return self.STATE_ADMIN_MODE_ACTIVE
             else:
