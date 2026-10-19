@@ -57,6 +57,7 @@ class DelayBetweenMessages(SubcommandHandler):
             self.db_session, SettingsKey.delay_between_messages, create=True
         )
 
+        await update.callback_query.answer()
         await update.callback_query.edit_message_text(
             t(language).pgettext(
                 "admin-configure",

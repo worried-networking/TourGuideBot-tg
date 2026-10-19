@@ -553,6 +553,7 @@ class AddContentCommandHandler(AdminProtectedBaseHandlerCallback, ABC):
             chat_id=update.effective_chat.id,
             user_id=update.effective_user.id,
         )
+        await update.callback_query.answer()
         await self.edit_or_reply_text(
             update,
             context,

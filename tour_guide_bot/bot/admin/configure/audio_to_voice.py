@@ -60,6 +60,7 @@ class AudioToVoice(SubcommandHandler):
             self.db_session, SettingsKey.audio_to_voice, create=True
         )
 
+        await update.callback_query.answer()
         if audio_to_voice_state.is_enabled:
             await update.callback_query.edit_message_text(
                 t(language).pgettext(
@@ -126,6 +127,7 @@ class AudioToVoice(SubcommandHandler):
         self.db_session.add(audio_to_voice_state)
         await self.db_session.commit()
 
+        await update.callback_query.answer()
         if context.matches[0].group(1) == "enable":
             await update.callback_query.edit_message_text(
                 t(language).pgettext(

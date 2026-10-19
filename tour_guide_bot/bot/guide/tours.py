@@ -362,6 +362,7 @@ class ToursCommandHandler(SelectTourHandler):
             .where(TourTranslation.id == int(context.matches[0].group(1)))
         )
         if not translation:
+            await update.callback_query.answer()
             await self.edit_or_reply_text(
                 update,
                 context,
@@ -373,6 +374,7 @@ class ToursCommandHandler(SelectTourHandler):
 
         bought_tour = await self.get_tour(user.guest_id, translation.tour_id)
         if not bought_tour:
+            await update.callback_query.answer()
             await self.edit_or_reply_text(
                 update,
                 context,

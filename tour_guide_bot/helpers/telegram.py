@@ -182,6 +182,9 @@ class AdminProtectedBaseHandlerCallback(BaseHandlerCallback):
             user = await handler.get_user(update, context)
 
             if not user.admin:
+                if update.callback_query:
+                    await update.callback_query.answer()
+
                 await cls.edit_or_reply_text(
                     update,
                     context,
