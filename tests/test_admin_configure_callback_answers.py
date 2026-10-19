@@ -9,14 +9,14 @@ async def _open_configure_item(conversation: Conversation, item: str) -> Message
     await conversation.send_message("/configure")
     response: Message = await conversation.get_response()
 
-    assert (
-        "Please select the parameter you want to change" in response.message
-    ), "Unexpected message in response to /configure"
+    assert "Please select the parameter you want to change" in response.message, (
+        "Unexpected message in response to /configure"
+    )
 
     response = await response.click(text=item)
-    assert isinstance(
-        response, BotCallbackAnswer
-    ), "BotCallbackAnswer didn't arrive after the inline button click"
+    assert isinstance(response, BotCallbackAnswer), (
+        "BotCallbackAnswer didn't arrive after the inline button click"
+    )
 
     event: MessageEdited.Event = await conversation.wait_event(MessageEdited())
     return event.message
@@ -26,14 +26,14 @@ async def _open_configure_item(conversation: Conversation, item: str) -> Message
 @pytest.mark.enabled_languages("en")
 async def test_audio_to_voice_buttons_are_answered(admin_conversation: Conversation):
     msg = await _open_configure_item(admin_conversation, "Audio-to-voice suggestions")
-    assert (
-        "currently" in msg.message and "enabled" in msg.message
-    ), "Unexpected audio-to-voice state in the prompt"
+    assert "currently" in msg.message and "enabled" in msg.message, (
+        "Unexpected audio-to-voice state in the prompt"
+    )
 
     response = await msg.click(text="Yes")
-    assert isinstance(
-        response, BotCallbackAnswer
-    ), "BotCallbackAnswer didn't arrive after the inline button click"
+    assert isinstance(response, BotCallbackAnswer), (
+        "BotCallbackAnswer didn't arrive after the inline button click"
+    )
 
     event: MessageEdited.Event = await admin_conversation.wait_event(MessageEdited())
     assert "were disabled" in event.message.message

@@ -18,9 +18,9 @@ from tour_guide_bot.models.guide import Guest, Subscription
 async def get_payment_token(
     form: types.payments.PaymentForm, token_request_data: dict = {}
 ) -> dict:
-    assert (
-        form.native_provider == "stripe"
-    ), "Only stripe is supported in the test for now"
+    assert form.native_provider == "stripe", (
+        "Only stripe is supported in the test for now"
+    )
 
     native_params = json.loads(form.native_params.data)
 
@@ -96,9 +96,9 @@ async def test_success_payment(
 
     response: Message = await conversation.get_response()
 
-    assert (
-        "You can now access the tour" in response.message
-    ), "Unexpected response to a successful payment"
+    assert "You can now access the tour" in response.message, (
+        "Unexpected response to a successful payment"
+    )
 
     async with AsyncSession(db_engine, expire_on_commit=False) as session:
         stmt = select(Subscription).where(Subscription.guest == guest)
@@ -159,9 +159,9 @@ async def test_success_payment_multiple_products(
 
     response: Message = await conversation.get_response()
 
-    assert (
-        "You can now access the tour" in response.message
-    ), "Unexpected response to a successful payment"
+    assert "You can now access the tour" in response.message, (
+        "Unexpected response to a successful payment"
+    )
 
     async with AsyncSession(db_engine, expire_on_commit=False) as session:
         stmt = select(Subscription).where(Subscription.guest == guest)
@@ -221,9 +221,9 @@ async def test_success_payment_multiple_languages(
 
     response: Message = await conversation.get_response()
 
-    assert (
-        "You can now access the tour" in response.message
-    ), "Unexpected response to a successful payment"
+    assert "You can now access the tour" in response.message, (
+        "Unexpected response to a successful payment"
+    )
 
     await conversation.send_message("/language")
     response: Message = await conversation.get_response()
@@ -269,9 +269,9 @@ async def test_success_payment_multiple_languages(
 
     response: Message = await conversation.get_response()
 
-    assert (
-        "Теперь вы можете получить доступ к экскурсии" in response.message
-    ), "Unexpected response to a successful payment"
+    assert "Теперь вы можете получить доступ к экскурсии" in response.message, (
+        "Unexpected response to a successful payment"
+    )
 
     async with AsyncSession(db_engine, expire_on_commit=False) as session:
         stmt = select(Subscription).where(Subscription.guest == guest)
@@ -279,6 +279,6 @@ async def test_success_payment_multiple_languages(
 
         double_duration = tours_as_dicts[0]["products"][0]["duration_days"] * 2
 
-        assert (
-            s.expire_ts - now
-        ).days == double_duration, "Unexpected subscription duration"
+        assert (s.expire_ts - now).days == double_duration, (
+            "Unexpected subscription duration"
+        )

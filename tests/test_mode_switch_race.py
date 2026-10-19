@@ -37,16 +37,16 @@ async def test_command_right_after_admin_welcome_is_handled_in_admin_mode(
 
     await conversation.send_message("/admin")
     response: Message = await conversation.get_response()
-    assert (
-        "Welcome to the admin mode" in response.message
-    ), "Unexpected message in response to the admin mode switch"
+    assert "Welcome to the admin mode" in response.message, (
+        "Unexpected message in response to the admin mode switch"
+    )
 
     await asyncio.sleep(REACTION)
     await conversation.send_message("/configure")
     response = await conversation.get_response()
-    assert (
-        "Please select the parameter you want to change" in response.message
-    ), "/configure sent right after the welcome message was not handled in admin mode"
+    assert "Please select the parameter you want to change" in response.message, (
+        "/configure sent right after the welcome message was not handled in admin mode"
+    )
 
 
 @pytest.mark.usefixtures("app")
@@ -72,9 +72,9 @@ async def test_command_right_after_guest_auth_reply_is_handled_as_guest(
     await asyncio.sleep(REACTION)
     await conversation.send_message("/tours")
     response = await conversation.get_response()
-    assert (
-        "Unknown command" not in response.message
-    ), "/tours sent right after the auth reply hit the contact-state fallback"
+    assert "Unknown command" not in response.message, (
+        "/tours sent right after the auth reply hit the contact-state fallback"
+    )
     assert (
         "Unfortunately, no tours are available for you at the moment"
         in response.message

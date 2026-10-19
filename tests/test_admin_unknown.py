@@ -27,9 +27,9 @@ async def test_success_auth_flow_configured_app(
 
     response: Message = await conversation.get_response()
 
-    assert (
-        "Admin permissions confirmed" in response.message
-    ), "Unexpected message in response to the secret phrase"
+    assert "Admin permissions confirmed" in response.message, (
+        "Unexpected message in response to the secret phrase"
+    )
 
 
 @pytest.mark.usefixtures("unconfigured_app")
@@ -51,9 +51,9 @@ async def test_success_auth_flow_unconfigured_app(
 
     response: Message = await conversation.get_response()
 
-    assert (
-        "Admin permissions confirmed" in response.message
-    ), "Unexpected message in response to the secret phrase"
+    assert "Admin permissions confirmed" in response.message, (
+        "Unexpected message in response to the secret phrase"
+    )
 
 
 @pytest.mark.usefixtures("app")
@@ -86,6 +86,6 @@ async def test_incorrect_token(conversation: Conversation):
 
     response: Message = await conversation.get_response()
 
-    assert (
-        "I still don't recognise you, sorry." in response.message
-    ), "Unexpected message in response to the secret phrase"
+    assert "I still don't recognise you, sorry." in response.message, (
+        "Unexpected message in response to the secret phrase"
+    )

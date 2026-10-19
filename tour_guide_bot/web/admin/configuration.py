@@ -34,9 +34,9 @@ class Configuration(Base):
             ]
 
         if SettingsKey.delay_between_messages.name not in all_settings:
-            all_settings[
-                SettingsKey.delay_between_messages.name
-            ] = Settings.DEFAULT_VALUES[SettingsKey.delay_between_messages]
+            all_settings[SettingsKey.delay_between_messages.name] = (
+                Settings.DEFAULT_VALUES[SettingsKey.delay_between_messages]
+            )
 
         return {
             "settings": all_settings,

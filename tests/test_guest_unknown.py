@@ -9,9 +9,9 @@ from .conftest import get_phone_number_request
 async def test_success_auth_flow(conversation: Conversation):
     await conversation.send_message("/start")
     response: Message = await conversation.get_response()
-    assert (
-        response.message == "welcome (en)"
-    ), "Unexpected first message from a configured bot"
+    assert response.message == "welcome (en)", (
+        "Unexpected first message from a configured bot"
+    )
 
     response: Message = await get_phone_number_request(conversation)
     await response.click(0, share_phone=True)
@@ -27,9 +27,9 @@ async def test_success_auth_flow(conversation: Conversation):
 async def test_accepts_only_current_contact(conversation: Conversation):
     await conversation.send_message("/start")
     response: Message = await conversation.get_response()
-    assert (
-        response.message == "welcome (en)"
-    ), "Unexpected first message from a configured bot"
+    assert response.message == "welcome (en)", (
+        "Unexpected first message from a configured bot"
+    )
 
     response: Message = await get_phone_number_request(conversation)
     await response.click(0, share_phone="+99999999999")
@@ -44,20 +44,20 @@ async def test_accepts_only_current_contact(conversation: Conversation):
 async def test_incorrect_commands_during_auth(conversation: Conversation):
     await conversation.send_message("/start")
     response: Message = await conversation.get_response()
-    assert (
-        response.message == "welcome (en)"
-    ), "Unexpected first message from a configured bot"
+    assert response.message == "welcome (en)", (
+        "Unexpected first message from a configured bot"
+    )
 
     await get_phone_number_request(conversation)
 
     await conversation.send_message("test")
     response: Message = await conversation.get_response()
-    assert (
-        "Please send me your phone" in response.message
-    ), "Unexpected response to an unexpected message during auth"
+    assert "Please send me your phone" in response.message, (
+        "Unexpected response to an unexpected message during auth"
+    )
 
     await conversation.send_message("/test")
     response: Message = await conversation.get_response()
-    assert (
-        "Unknown command" in response.message
-    ), "Unexpected response to an unexpected command during auth"
+    assert "Unknown command" in response.message, (
+        "Unexpected response to an unexpected command during auth"
+    )

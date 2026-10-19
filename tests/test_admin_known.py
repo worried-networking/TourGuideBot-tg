@@ -8,6 +8,6 @@ async def test_bot_recognise_added_user(conversation: Conversation):
     await conversation.send_message("/admin")
     response: Message = await conversation.get_response()
 
-    assert (
-        "Welcome to the admin mode" in response.message
-    ), "Unexpected message in response to the admin mode switch"
+    assert "Welcome to the admin mode" in response.message, (
+        "Unexpected message in response to the admin mode switch"
+    )

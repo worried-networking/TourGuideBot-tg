@@ -12,14 +12,14 @@ from tour_guide_bot.models.guide import MessageType
 async def test_single_tour(conversation: Conversation, tours_as_dicts: list[dict]):
     await conversation.send_message("/start")
     response: Message = await conversation.get_response()
-    assert (
-        response.message == "welcome (en)"
-    ), "Unexpected first message from a configured bot"
+    assert response.message == "welcome (en)", (
+        "Unexpected first message from a configured bot"
+    )
 
     response: Message = await conversation.get_response()
-    assert (
-        "I see you have a tour available" in response.message
-    ), "Unexpected response to a user with a single tour"
+    assert "I see you have a tour available" in response.message, (
+        "Unexpected response to a user with a single tour"
+    )
 
     await conversation.send_message("/tours")
     response: Message = await conversation.get_response()
@@ -33,9 +33,9 @@ async def test_single_tour(conversation: Conversation, tours_as_dicts: list[dict
 
         match content["type"]:
             case MessageType.text:
-                assert (
-                    response.message == content["content"]["text"]
-                ), "Unexpected response message text"
+                assert response.message == content["content"]["text"], (
+                    "Unexpected response message text"
+                )
 
             case MessageType.location:
                 assert response.media is not None
@@ -52,9 +52,9 @@ async def test_single_tour(conversation: Conversation, tours_as_dicts: list[dict
 
     response: Message = await conversation.get_response()
 
-    assert (
-        "Are you ready to continue?" == response.message
-    ), "Unexpected message after the end of a section"
+    assert "Are you ready to continue?" == response.message, (
+        "Unexpected message after the end of a section"
+    )
 
 
 @pytest.mark.approved_tour_ids(1, 2)
@@ -120,14 +120,14 @@ async def test_single_tour(conversation: Conversation, tours_as_dicts: list[dict
 async def test_multiple_tours(conversation: Conversation, tours_as_dicts: list[dict]):
     await conversation.send_message("/start")
     response: Message = await conversation.get_response()
-    assert (
-        response.message == "welcome (en)"
-    ), "Unexpected first message from a configured bot"
+    assert response.message == "welcome (en)", (
+        "Unexpected first message from a configured bot"
+    )
 
     response: Message = await conversation.get_response()
-    assert (
-        "I see you have 2 tours available" in response.message
-    ), "Unexpected response to a user with a single tour"
+    assert "I see you have 2 tours available" in response.message, (
+        "Unexpected response to a user with a single tour"
+    )
 
     await conversation.send_message("/tours")
     response: Message = await conversation.get_response()
@@ -152,9 +152,9 @@ async def test_multiple_tours(conversation: Conversation, tours_as_dicts: list[d
     ), "Unexpected first section of the tour 2"
 
     response: Message = await conversation.get_response()
-    assert (
-        "Are you ready to continue?" == response.message
-    ), "Unexpected message after the end of a section"
+    assert "Are you ready to continue?" == response.message, (
+        "Unexpected message after the end of a section"
+    )
 
 
 @pytest.mark.approved_tour_ids(2)
@@ -222,14 +222,14 @@ async def test_multiple_tours_one_approved(
 ):
     await conversation.send_message("/start")
     response: Message = await conversation.get_response()
-    assert (
-        response.message == "welcome (en)"
-    ), "Unexpected first message from a configured bot"
+    assert response.message == "welcome (en)", (
+        "Unexpected first message from a configured bot"
+    )
 
     response: Message = await conversation.get_response()
-    assert (
-        "I see you have a tour available" in response.message
-    ), "Unexpected response to a user with a single tour"
+    assert "I see you have a tour available" in response.message, (
+        "Unexpected response to a user with a single tour"
+    )
 
     await conversation.send_message("/tours")
     response: Message = await conversation.get_response()
@@ -247,6 +247,6 @@ async def test_multiple_tours_one_approved(
     ), "Unexpected first section of the tour 2"
 
     response: Message = await conversation.get_response()
-    assert (
-        "Are you ready to continue?" == response.message
-    ), "Unexpected message after the end of a section"
+    assert "Are you ready to continue?" == response.message, (
+        "Unexpected message after the end of a section"
+    )

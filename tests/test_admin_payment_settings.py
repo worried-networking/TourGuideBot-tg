@@ -19,9 +19,9 @@ async def test_menu_available_when_have_support_and_terms(
     event: MessageEdited.Event = await admin_conversation.wait_event(MessageEdited())
     msg: Message = event.message
 
-    assert (
-        "select the payment-related parameter" in msg.message
-    ), "Unexpected message in response to the admin mode switch"
+    assert "select the payment-related parameter" in msg.message, (
+        "Unexpected message in response to the admin mode switch"
+    )
 
     assert msg.button_count > 1
 
@@ -44,9 +44,9 @@ async def test_menu_not_available_when_no_support_or_terms(
     event: MessageEdited.Event = await admin_conversation.wait_event(MessageEdited())
     msg: Message = event.message
 
-    assert (
-        "You need to set up" in msg.message
-    ), "Unexpected message in response to the admin mode switch"
+    assert "You need to set up" in msg.message, (
+        "Unexpected message in response to the admin mode switch"
+    )
 
     assert msg.button_count == 1
 

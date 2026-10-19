@@ -34,27 +34,27 @@ from tour_guide_bot.models.telegram import TelegramUser
 @pytest.fixture(scope="session")
 def bot_token() -> str:
     token = environ.get("TOUR_GUIDE_TELEGRAM_BOT_TOKEN")
-    assert (
-        token
-    ), "Please set the telegram bot token via TOUR_GUIDE_TELEGRAM_BOT_TOKEN env variable"
+    assert token, (
+        "Please set the telegram bot token via TOUR_GUIDE_TELEGRAM_BOT_TOKEN env variable"
+    )
     return token
 
 
 @pytest.fixture(scope="session")
 def mtproto_api_id():
     api_id = environ.get("TOUR_GUIDE_TELEGRAM_APP_API_ID")
-    assert (
-        api_id
-    ), "Please set the telegram app api id via TOUR_GUIDE_TELEGRAM_APP_API_ID env variable"
+    assert api_id, (
+        "Please set the telegram app api id via TOUR_GUIDE_TELEGRAM_APP_API_ID env variable"
+    )
     return api_id
 
 
 @pytest.fixture(scope="session")
 def mtproto_api_hash():
     api_hash = environ.get("TOUR_GUIDE_TELEGRAM_APP_API_HASH")
-    assert (
-        api_hash
-    ), "Please set the telegram app api hash via TOUR_GUIDE_TELEGRAM_APP_API_HASH env variable"
+    assert api_hash, (
+        "Please set the telegram app api hash via TOUR_GUIDE_TELEGRAM_APP_API_HASH env variable"
+    )
     return api_hash
 
 
@@ -74,9 +74,9 @@ def payment_token() -> str:
 def mtproto_session_string() -> StringSession:
     session_string = environ.get("TOUR_GUIDE_TELEGRAM_APP_SESSION_STRING")
 
-    assert (
-        session_string
-    ), "Please set the telegram app session string via TOUR_GUIDE_TELEGRAM_APP_SESSION_STRING env variable (see readme on how to get it)"
+    assert session_string, (
+        "Please set the telegram app session string via TOUR_GUIDE_TELEGRAM_APP_SESSION_STRING env variable (see readme on how to get it)"
+    )
     return StringSession(session_string)
 
 
@@ -545,9 +545,9 @@ async def admin_conversation(conversation: Conversation, unconfigured_app, admin
     await conversation.send_message("/admin")
     response = await conversation.get_response()
 
-    assert (
-        "Welcome to the admin mode" in response.message
-    ), "Unexpected message in response to the admin mode switch"
+    assert "Welcome to the admin mode" in response.message, (
+        "Unexpected message in response to the admin mode switch"
+    )
 
     await asyncio.sleep(0.5)
 

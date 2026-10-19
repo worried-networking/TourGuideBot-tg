@@ -11,28 +11,28 @@ async def _receive_tour_content(
 ) -> list[Message]:
     await conversation.send_message("/start")
     response: Message = await conversation.get_response()
-    assert (
-        response.message == "welcome (en)"
-    ), "Unexpected first message from a configured bot"
+    assert response.message == "welcome (en)", (
+        "Unexpected first message from a configured bot"
+    )
 
     response = await conversation.get_response()
-    assert (
-        "I see you have a tour available" in response.message
-    ), "Unexpected response to a user with a single tour"
+    assert "I see you have a tour available" in response.message, (
+        "Unexpected response to a user with a single tour"
+    )
 
     await conversation.send_message("/tours")
     response = await conversation.get_response()
-    assert (
-        "Only one tour is available for you" in response.message
-    ), "Unexpected response to /tours"
+    assert "Only one tour is available for you" in response.message, (
+        "Unexpected response to /tours"
+    )
 
     section = tours_as_dicts[0]["translations"]["en"]["sections"][0]
     content_messages = [await conversation.get_response() for _ in section["content"]]
 
     response = await conversation.get_response()
-    assert (
-        "Are you ready to continue?" == response.message
-    ), "Unexpected message after the end of a section"
+    assert "Are you ready to continue?" == response.message, (
+        "Unexpected message after the end of a section"
+    )
 
     return content_messages
 
@@ -45,9 +45,9 @@ async def test_tour_content_protected_by_default(
     content_messages = await _receive_tour_content(conversation, tours_as_dicts)
 
     for msg in content_messages:
-        assert (
-            msg.noforwards
-        ), "Tour content must be protected when protect_content isn't set"
+        assert msg.noforwards, (
+            "Tour content must be protected when protect_content isn't set"
+        )
 
 
 @pytest.mark.approved_tour_ids(1)
@@ -62,6 +62,6 @@ async def test_tour_content_not_protected_when_disabled(
     content_messages = await _receive_tour_content(conversation, tours_as_dicts)
 
     for msg in content_messages:
-        assert (
-            not msg.noforwards
-        ), "Tour content must not be protected when protect_content is disabled"
+        assert not msg.noforwards, (
+            "Tour content must not be protected when protect_content is disabled"
+        )

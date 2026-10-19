@@ -662,9 +662,9 @@ class AddContentCommandHandler(AdminProtectedBaseHandlerCallback, ABC):
                 language = await self.get_language(update, context)
                 context.user_data["audio_file_id"] = update.message.audio.file_id
                 context.user_data["audio_message_id"] = update.message.message_id
-                context.user_data[
-                    "audio_caption"
-                ] = update.message.caption_markdown_v2_urled
+                context.user_data["audio_caption"] = (
+                    update.message.caption_markdown_v2_urled
+                )
 
                 await update.message.reply_text(
                     t(language).pgettext(

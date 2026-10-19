@@ -24,9 +24,9 @@ async def test_approve_known_user(
     await admin_conversation.send_message("/approve")
     response: Message = await admin_conversation.get_response()
 
-    assert (
-        "Please select the tour." == response.message
-    ), "Unexpected response to the /approve command"
+    assert "Please select the tour." == response.message, (
+        "Unexpected response to the /approve command"
+    )
 
     response = await response.click(
         text=tours_as_dicts[0]["translations"]["en"]["title"]
@@ -38,22 +38,22 @@ async def test_approve_known_user(
 
     await admin_conversation.send_message(admin.phone)
     response: Message = await admin_conversation.get_response()
-    assert (
-        "How long the user should have access" in response.message
-    ), "Unexpected grant duration request message"
+    assert "How long the user should have access" in response.message, (
+        "Unexpected grant duration request message"
+    )
 
     now = datetime.now()
     await admin_conversation.send_message("7")
     response: Message = await admin_conversation.get_response()
-    assert (
-        "was approved for the tour" in response.message
-    ), "Unexpected grant confirmation"
+    assert "was approved for the tour" in response.message, (
+        "Unexpected grant confirmation"
+    )
 
     await admin_conversation.send_message("/guest")
     response: Message = await admin_conversation.get_response()
-    assert (
-        "in guest mode now" in response.message
-    ), "Unexpected message in response to the guest mode switch"
+    assert "in guest mode now" in response.message, (
+        "Unexpected message in response to the guest mode switch"
+    )
 
     await admin_conversation.send_message("/tours")
 
@@ -76,9 +76,9 @@ async def test_approve_unknown_user(
     await admin_conversation.send_message("/approve")
     response: Message = await admin_conversation.get_response()
 
-    assert (
-        "Please select the tour." == response.message
-    ), "Unexpected response to the /approve command"
+    assert "Please select the tour." == response.message, (
+        "Unexpected response to the /approve command"
+    )
 
     response = await response.click(
         text=tours_as_dicts[0]["translations"]["en"]["title"]
@@ -90,21 +90,21 @@ async def test_approve_unknown_user(
 
     await admin_conversation.send_message(admin.phone)
     response: Message = await admin_conversation.get_response()
-    assert (
-        "How long the user should have access" in response.message
-    ), "Unexpected grant duration request message"
+    assert "How long the user should have access" in response.message, (
+        "Unexpected grant duration request message"
+    )
 
     await admin_conversation.send_message("1")
     response: Message = await admin_conversation.get_response()
-    assert (
-        "was approved for the tour" in response.message
-    ), "Unexpected grant confirmation"
+    assert "was approved for the tour" in response.message, (
+        "Unexpected grant confirmation"
+    )
 
     await admin_conversation.send_message("/guest")
     response: Message = await admin_conversation.get_response()
-    assert (
-        "in guest mode now" in response.message
-    ), "Unexpected message in response to the guest mode switch"
+    assert "in guest mode now" in response.message, (
+        "Unexpected message in response to the guest mode switch"
+    )
 
     await admin_conversation.send_message("/start")
 
@@ -115,9 +115,9 @@ async def test_approve_unknown_user(
     await response.click(0, share_phone=True)
 
     response: Message = await admin_conversation.get_response()
-    assert (
-        "I see you have a tour available" in response.message
-    ), "Unexpected response to a user with a single tour"
+    assert "I see you have a tour available" in response.message, (
+        "Unexpected response to a user with a single tour"
+    )
 
 
 @pytest.mark.usefixtures("app", "guest", "tours", "approved_tours")
