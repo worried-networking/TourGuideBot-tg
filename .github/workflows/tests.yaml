@@ -38,20 +38,20 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v4
 
-      - name: Install poetry
-        run: pipx install poetry
-
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
-          cache: 'poetry'
+
+      - uses: astral-sh/setup-uv@v3
+        with:
+          enable-cache: true
 
       - name: Install dependencies
-        run: poetry install --no-interaction --no-root --no-ansi
+        run: uv sync --frozen --python ${{ matrix.python-version }}
 
       - name: Compile translations
         run: |
-          poetry run pybabel compile --domain=tour_guide_bot --directory=tour_guide_bot/locales
+          uv run pybabel compile --domain=tour_guide_bot --directory=tour_guide_bot/locales
 
       - name: Run test suite
         env:
@@ -61,7 +61,7 @@ jobs:
           TOUR_GUIDE_TELEGRAM_APP_API_HASH: ${{ secrets.TOUR_GUIDE_TELEGRAM_APP_API_HASH }}
           TOUR_GUIDE_TELEGRAM_PAYMENT_TOKEN: ${{ secrets.TOUR_GUIDE_TELEGRAM_PAYMENT_TOKEN }}
         run: |
-          poetry run pytest --cov=tour_guide_bot --cov-report=xml
+          uv run pytest --cov=tour_guide_bot --cov-report=xml
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v5
