@@ -1,6 +1,7 @@
 import argparse
 import asyncio
 import logging
+import signal
 import sys
 from os import mkdir, sep
 from os.path import dirname, realpath
@@ -175,6 +176,9 @@ def run():
         destination_path,
     )
 
+    for sig in (signal.SIGINT, signal.SIGTERM):
+        loop.add_signal_handler(sig, loop.stop)
+
     loop.run_until_complete(app.initialize())
     if app.post_init:
         loop.run_until_complete(app.post_init(app))
@@ -218,20 +222,27 @@ def run():
 
         webapp.add_routes(routes)
 
+        # web.run_app() would cancel the bot's tasks and close the loop on exit
+        web_runner = web.AppRunner(webapp)
+        loop.run_until_complete(web_runner.setup())
+        loop.run_until_complete(
+            web.TCPSite(web_runner, args.http_host, args.http_port).start()
+        )
+    else:
+        web_runner = None
+
     try:
         log.info(t().pgettext("cli", "Up and runnig!"))
-        if args.enable_http_server:
-            web.run_app(
-                webapp,
-                host=args.http_host,
-                port=args.http_port,
-                loop=loop,
-                print=False,
-            )
-        else:
-            loop.run_forever()
+        loop.run_forever()
     finally:
-        loop.run_until_complete(app.update_persistence())
+        if web_runner:
+            loop.run_until_complete(web_runner.cleanup())
+
+        # Application.stop() writes the pending changes to the persistence
+        loop.run_until_complete(app.updater.stop())
+        loop.run_until_complete(app.stop())
+        loop.run_until_complete(app.shutdown())
+        loop.close()
 
 
 if __name__ == "__main__":

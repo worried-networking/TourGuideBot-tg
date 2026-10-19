@@ -23,4 +23,4 @@ then
     .venv/bin/alembic -x db="${db//+*:\/\//://}" upgrade head
 fi
 
-.venv/bin/python3 -mtour_guide_bot.cli "$@"
+exec .venv/bin/python3 -mtour_guide_bot.cli "$@"
