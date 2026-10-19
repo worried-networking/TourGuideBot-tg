@@ -1,73 +1,73 @@
-#: tour_guide_bot/cli.py:56
+#: tour_guide_bot/cli.py:62
 msgctxt "cli"
 msgid "Tour Guide bot [telegram]"
 msgstr ""
 
-#: tour_guide_bot/cli.py:61
+#: tour_guide_bot/cli.py:67
 msgctxt "cli"
 msgid "Enable debug logging."
 msgstr ""
 
-#: tour_guide_bot/cli.py:66
+#: tour_guide_bot/cli.py:72
 msgctxt "cli"
 msgid "Comma-separated list of available languages."
 msgstr ""
 
-#: tour_guide_bot/cli.py:73
+#: tour_guide_bot/cli.py:79
 msgctxt "cli"
 msgid ""
 "Default language. If not provided, will be set to the first enabled "
 "language."
 msgstr ""
 
-#: tour_guide_bot/cli.py:83
+#: tour_guide_bot/cli.py:89
 msgctxt "cli"
 msgid "Telegram Bot token for the Guide Bot."
 msgstr ""
 
-#: tour_guide_bot/cli.py:89
+#: tour_guide_bot/cli.py:95
 msgctxt "cli"
 msgid "SQLAlchemy engine URL"
 msgstr ""
 
-#: tour_guide_bot/cli.py:95
+#: tour_guide_bot/cli.py:101
 msgctxt "cli"
 msgid "Enable HTTP server."
 msgstr ""
 
-#: tour_guide_bot/cli.py:100
+#: tour_guide_bot/cli.py:106
 msgctxt "cli"
 msgid "HTTP-server host."
 msgstr ""
 
-#: tour_guide_bot/cli.py:106
+#: tour_guide_bot/cli.py:112
 msgctxt "cli"
 msgid "HTTP-server port."
 msgstr ""
 
-#: tour_guide_bot/cli.py:112
+#: tour_guide_bot/cli.py:118
 msgctxt "cli"
 msgid "Cookie encryption key."
 msgstr ""
 
-#: tour_guide_bot/cli.py:122
+#: tour_guide_bot/cli.py:128
 msgctxt "cli"
 msgid ""
 "You need to provide a cookie encryption key for the HTTP server to work. "
 "Please re-run the server providing argument --http-cookie-key='{}'"
 msgstr ""
 
-#: tour_guide_bot/cli.py:133
+#: tour_guide_bot/cli.py:139
 msgctxt "cli"
 msgid "the list of enabled languages must not be empty"
 msgstr ""
 
-#: tour_guide_bot/cli.py:141
+#: tour_guide_bot/cli.py:147
 msgctxt "cli"
 msgid "the default language must be in the list of enabled languages"
 msgstr ""
 
-#: tour_guide_bot/cli.py:235
+#: tour_guide_bot/cli.py:241
 msgctxt "cli"
 msgid "Up and runnig!"
 msgstr ""

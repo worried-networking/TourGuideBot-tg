@@ -3,11 +3,14 @@ from datetime import datetime, timedelta
 from os import environ
 from pathlib import Path
 
+import httpx
 import pytest
+import pytest_asyncio
 from pytest_mock import MockerFixture
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncEngine, AsyncSession, create_async_engine
 from sqlalchemy.orm import selectinload
+from telegram.request import HTTPXRequest
 from telethon import TelegramClient
 from telethon.sessions import StringSession
 from telethon.tl.custom.conversation import Conversation
@@ -29,6 +32,15 @@ from tour_guide_bot.models.guide import (
 )
 from tour_guide_bot.models.settings import PaymentProvider, Settings, SettingsKey
 from tour_guide_bot.models.telegram import TelegramUser
+
+
+def pytest_collection_modifyitems(items: list[pytest.Item]):
+    # One event loop for the whole session, so the Bot API connections can be
+    # shared between tests (see SharedHTTPXRequest)
+    session_loop = pytest.mark.asyncio(loop_scope="session")
+    for item in items:
+        if pytest_asyncio.is_async_test(item):
+            item.add_marker(session_loop, append=False)
 
 
 @pytest.fixture(scope="session")
@@ -308,6 +320,40 @@ def default_language() -> str:
     return "en"
 
 
+class SharedHTTPXRequest(HTTPXRequest):
+    """Outlives the test's Application, so the next test reuses its connections.
+
+    TLS handshakes with the Bot API are often slow enough to time out a test.
+    """
+
+    def __init__(self, connection_pool_size: int):
+        super().__init__(
+            connection_pool_size,
+            # Keep the connections across the pause between tests (5s by default)
+            httpx_kwargs={
+                "limits": httpx.Limits(
+                    max_connections=connection_pool_size, keepalive_expiry=60
+                )
+            },
+        )
+
+    async def shutdown(self) -> None:
+        pass
+
+    async def close(self) -> None:
+        await super().shutdown()
+
+
+@pytest.fixture(scope="session")
+async def bot_requests():
+    requests = SharedHTTPXRequest(256), SharedHTTPXRequest(1)
+
+    yield requests
+
+    for request in requests:
+        await request.close()
+
+
 @pytest.fixture
 def unitialized_app(
     bot_token: str,
@@ -315,9 +361,17 @@ def unitialized_app(
     enabled_languages: list[str],
     default_language: str,
     persistence_path: Path,
+    bot_requests: tuple[SharedHTTPXRequest, SharedHTTPXRequest],
 ):
+    request, get_updates_request = bot_requests
     app = prepare_app(
-        bot_token, db_engine, enabled_languages, default_language, str(persistence_path)
+        bot_token,
+        db_engine,
+        enabled_languages,
+        default_language,
+        str(persistence_path),
+        request=request,
+        get_updates_request=get_updates_request,
     )
 
     yield app

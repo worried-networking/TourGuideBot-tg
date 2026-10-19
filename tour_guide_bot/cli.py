@@ -15,6 +15,7 @@ from aiohttp_session.cookie_storage import EncryptedCookieStorage
 from cryptography import fernet
 from sqlalchemy.ext.asyncio import AsyncEngine, create_async_engine
 from telegram.ext import PicklePersistence
+from telegram.request import BaseRequest
 from telegram.warnings import PTBUserWarning
 
 from tour_guide_bot import log, set_fallback_locale, t
@@ -29,17 +30,22 @@ def prepare_app(
     default_language: str,
     persistence_path: str,
     application_class=Application,
+    request: BaseRequest | None = None,
+    get_updates_request: BaseRequest | None = None,
 ) -> Application:
     filterwarnings(
         action="ignore", message=r".*CallbackQueryHandler", category=PTBUserWarning
     )
 
-    app = (
-        application_class.builder()
-        .token(guide_bot_token)
-        .concurrent_updates(True)
-        .build()
+    builder = (
+        application_class.builder().token(guide_bot_token).concurrent_updates(True)
     )
+    if request:
+        builder.request(request)
+    if get_updates_request:
+        builder.get_updates_request(get_updates_request)
+
+    app = builder.build()
     app.content_add_lock = asyncio.Lock()
     app.db_engine = engine
     app.enabled_languages = enabled_languages
