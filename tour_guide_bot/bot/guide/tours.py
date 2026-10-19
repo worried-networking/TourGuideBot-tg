@@ -116,6 +116,11 @@ class ToursCommandHandler(SelectTourHandler):
         delay_between_messages_state = await Settings.load(
             self.db_session, SettingsKey.delay_between_messages, create=True
         )
+        protect_content = (
+            await Settings.load(
+                self.db_session, SettingsKey.protect_content, create=True
+            )
+        ).is_enabled
 
         for content in section.content:
             chat_action = ChatAction.TYPING
@@ -153,7 +158,7 @@ class ToursCommandHandler(SelectTourHandler):
                         ParseMode.MARKDOWN_V2,
                         disable_web_page_preview=True,
                         disable_notification=True,
-                        protect_content=True,
+                        protect_content=protect_content,
                     )
 
                 case MessageType.location:
@@ -162,7 +167,7 @@ class ToursCommandHandler(SelectTourHandler):
                         content.content["latitude"],
                         content.content["longitude"],
                         disable_notification=True,
-                        protect_content=True,
+                        protect_content=protect_content,
                     )
 
                 case MessageType.voice:
@@ -172,7 +177,7 @@ class ToursCommandHandler(SelectTourHandler):
                         caption=content.content["files"][0].get("caption"),
                         parse_mode=ParseMode.MARKDOWN_V2,
                         disable_notification=True,
-                        protect_content=True,
+                        protect_content=protect_content,
                     )
 
                 case MessageType.video_note:
@@ -182,7 +187,7 @@ class ToursCommandHandler(SelectTourHandler):
                         caption=content.content["files"][0].get("caption"),
                         parse_mode=ParseMode.MARKDOWN_V2,
                         disable_notification=True,
-                        protect_content=True,
+                        protect_content=protect_content,
                     )
 
                 case MessageType.audio:
@@ -192,7 +197,7 @@ class ToursCommandHandler(SelectTourHandler):
                         caption=content.content["files"][0].get("caption"),
                         parse_mode=ParseMode.MARKDOWN_V2,
                         disable_notification=True,
-                        protect_content=True,
+                        protect_content=protect_content,
                     )
 
                 case MessageType.video:
@@ -202,7 +207,7 @@ class ToursCommandHandler(SelectTourHandler):
                         caption=content.content["files"][0].get("caption"),
                         parse_mode=ParseMode.MARKDOWN_V2,
                         disable_notification=True,
-                        protect_content=True,
+                        protect_content=protect_content,
                     )
 
                 case MessageType.photo:
@@ -212,7 +217,7 @@ class ToursCommandHandler(SelectTourHandler):
                         caption=content.content["files"][0].get("caption"),
                         parse_mode=ParseMode.MARKDOWN_V2,
                         disable_notification=True,
-                        protect_content=True,
+                        protect_content=protect_content,
                     )
 
                 case MessageType.animation:
@@ -222,7 +227,7 @@ class ToursCommandHandler(SelectTourHandler):
                         caption=content.content["files"][0].get("caption"),
                         parse_mode=ParseMode.MARKDOWN_V2,
                         disable_notification=True,
-                        protect_content=True,
+                        protect_content=protect_content,
                     )
 
                 case MessageType.media_group:
@@ -259,7 +264,7 @@ class ToursCommandHandler(SelectTourHandler):
                         chat_id,
                         media_group,
                         disable_notification=True,
-                        protect_content=True,
+                        protect_content=protect_content,
                     )
 
         if not is_last_section:
