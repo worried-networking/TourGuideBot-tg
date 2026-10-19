@@ -9,6 +9,7 @@ from tour_guide_bot.bot.admin.configure.messages.support import SupportMessage
 from tour_guide_bot.bot.admin.configure.messages.terms import TermsMessage
 from tour_guide_bot.bot.admin.configure.messages.welcome import WelcomeMessage
 from tour_guide_bot.bot.admin.configure.payments import PaymentsSubcommand
+from tour_guide_bot.bot.admin.configure.protect_content import ProtectContent
 from tour_guide_bot.helpers.telegram import MenuCommandHandler
 
 
@@ -19,6 +20,7 @@ class ConfigureCommandHandler(MenuCommandHandler):
         SupportMessage,
         PaymentsSubcommand,
         AudioToVoice,
+        ProtectContent,
         DelayBetweenMessages,
     ]
 
