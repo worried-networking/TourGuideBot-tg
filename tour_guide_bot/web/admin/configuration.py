@@ -28,6 +28,11 @@ class Configuration(Base):
                 SettingsKey.audio_to_voice
             ]
 
+        if SettingsKey.protect_content.name not in all_settings:
+            all_settings[SettingsKey.protect_content.name] = Settings.DEFAULT_VALUES[
+                SettingsKey.protect_content
+            ]
+
         if SettingsKey.delay_between_messages.name not in all_settings:
             all_settings[
                 SettingsKey.delay_between_messages.name

@@ -21,6 +21,12 @@
                             {{ pgettext("web-generic", "Suggest audio to voice conversion") }}
                         </label>
                     </div>
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" name="protect-content" value="1" id="protect-content-check"{% if settings['protect_content'] == 'yes' %} checked{% endif %}>
+                        <label class="form-check-label" for="protect-content-check">
+                            {{ pgettext("web-generic", "Protect tour content from forwarding and saving") }}
+                        </label>
+                    </div>
                     <div class="input-group">
                         <span class="input-group-text" id="dbm-addon">Delay between messages</span>
                         <input type="number" min="0" max="5" step="0.5" class="form-control" id="delay-between-messages" aria-describedby="dbm-addon" value="{{settings['delay_between_messages']}}">
