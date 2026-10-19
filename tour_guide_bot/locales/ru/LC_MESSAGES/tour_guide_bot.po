@@ -1197,3 +1197,32 @@ msgctxt "web-generic"
 msgid "Payment settings"
 msgstr "Настройки оплаты"
 
+#: tour_guide_bot/bot/admin/configure/protect_content.py:24
+msgctxt "admin-configure"
+msgid "Content protection"
+msgstr "Защита контента"
+
+#: tour_guide_bot/bot/admin/configure/protect_content.py:66
+msgctxt "admin-configure"
+msgid "Content protection is currently *enabled*\\. Guests can neither forward nor save tour content \\(and, in some Telegram apps, take screenshots of it\\)\\. The change applies only to messages sent from now on\\. Would you like to disable it?"
+msgstr "Защита контента *включена*\\. Гости не могут пересылать и сохранять материалы экскурсий \\(а в некоторых приложениях Telegram — и делать скриншоты\\)\\. Изменение применяется только к сообщениям, отправленным с этого момента\\. Хотите выключить?"
+
+#: tour_guide_bot/bot/admin/configure/protect_content.py:90
+msgctxt "admin-configure"
+msgid "Content protection is currently *disabled*\\. Guests can forward and save tour content \\(and take screenshots of it\\)\\. Enabling it prevents this, but applies only to messages sent from now on\\. Would you like to enable it?"
+msgstr "Защита контента *выключена*\\. Гости могут пересылать и сохранять материалы экскурсий \\(и делать скриншоты\\)\\. Включение защиты запретит это, но применится только к сообщениям, отправленным с этого момента\\. Хотите включить?"
+
+#: tour_guide_bot/bot/admin/configure/protect_content.py:133
+msgctxt "admin-configure"
+msgid "Content protection was enabled."
+msgstr "Защита контента включена."
+
+#: tour_guide_bot/bot/admin/configure/protect_content.py:140
+msgctxt "admin-configure"
+msgid "Content protection was disabled."
+msgstr "Защита контента выключена."
+
+#: tour_guide_bot/web/templates/admin/configuration.html:27
+msgctxt "web-generic"
+msgid "Protect tour content from forwarding and saving"
+msgstr "Защищать материалы экскурсий от пересылки и сохранения"
