@@ -118,6 +118,8 @@ msgstr ""
 #: tour_guide_bot/bot/admin/configure/audio_to_voice.py:80
 #: tour_guide_bot/bot/admin/configure/audio_to_voice.py:104
 #: tour_guide_bot/bot/admin/configure/payments/payment_provider/delete.py:121
+#: tour_guide_bot/bot/admin/configure/protect_content.py:81
+#: tour_guide_bot/bot/admin/configure/protect_content.py:105
 #: tour_guide_bot/bot/admin/revoke.py:227
 #: tour_guide_bot/bot/admin/revoke.py:285
 #: tour_guide_bot/bot/admin/tour/add_content.py:383
@@ -126,7 +128,7 @@ msgstr ""
 #: tour_guide_bot/bot/admin/tour/add_content.py:519
 #: tour_guide_bot/bot/admin/tour/delete.py:84
 #: tour_guide_bot/bot/admin/tour/pricing/delete.py:142
-#: tour_guide_bot/bot/guide/tours.py:285
+#: tour_guide_bot/bot/guide/tours.py:290
 #: tour_guide_bot/helpers/language_selector.py:81
 #: tour_guide_bot/helpers/payment_provider_selector.py:95
 #: tour_guide_bot/helpers/product_selector.py:116
@@ -209,8 +211,8 @@ msgstr ""
 #: tour_guide_bot/bot/admin/tour/pricing/delete.py:167
 #: tour_guide_bot/bot/guide/purchase.py:95
 #: tour_guide_bot/bot/guide/purchase.py:109
-#: tour_guide_bot/bot/guide/tours.py:103 tour_guide_bot/bot/guide/tours.py:335
-#: tour_guide_bot/bot/guide/tours.py:363
+#: tour_guide_bot/bot/guide/tours.py:103 tour_guide_bot/bot/guide/tours.py:340
+#: tour_guide_bot/bot/guide/tours.py:368
 #: tour_guide_bot/helpers/language_selector.py:128
 #: tour_guide_bot/helpers/payment_provider_selector.py:129
 #: tour_guide_bot/helpers/product_selector.py:148
@@ -244,6 +246,8 @@ msgstr ""
 #: tour_guide_bot/bot/admin/configure/audio_to_voice.py:74
 #: tour_guide_bot/bot/admin/configure/audio_to_voice.py:98
 #: tour_guide_bot/bot/admin/configure/payments/payment_provider/delete.py:117
+#: tour_guide_bot/bot/admin/configure/protect_content.py:75
+#: tour_guide_bot/bot/admin/configure/protect_content.py:99
 #: tour_guide_bot/bot/admin/revoke.py:221
 #: tour_guide_bot/bot/admin/tour/add_content.py:677
 #: tour_guide_bot/bot/admin/tour/delete.py:80
@@ -304,7 +308,7 @@ msgctxt "admin-bot-start"
 msgid "I don't recognize you! Please send me your phone number."
 msgstr ""
 
-#: tour_guide_bot/bot/admin/configure/__init__.py:30
+#: tour_guide_bot/bot/admin/configure/__init__.py:32
 msgctxt "admin-configure"
 msgid "Please select the parameter you want to change."
 msgstr ""
@@ -362,6 +366,39 @@ msgctxt "admin-configure"
 msgid "The delay was updated!"
 msgstr ""
 
+#: tour_guide_bot/bot/admin/configure/protect_content.py:24
+msgctxt "admin-configure"
+msgid "Content protection"
+msgstr ""
+
+#: tour_guide_bot/bot/admin/configure/protect_content.py:66
+msgctxt "admin-configure"
+msgid ""
+"Content protection is currently *enabled*\\. Guests can neither forward "
+"nor save tour content \\(and, in some Telegram apps, take screenshots of "
+"it\\)\\. The change applies only to messages sent from now on\\. Would "
+"you like to disable it?"
+msgstr ""
+
+#: tour_guide_bot/bot/admin/configure/protect_content.py:90
+msgctxt "admin-configure"
+msgid ""
+"Content protection is currently *disabled*\\. Guests can forward and save"
+" tour content \\(and take screenshots of it\\)\\. Enabling it prevents "
+"this, but applies only to messages sent from now on\\. Would you like to "
+"enable it?"
+msgstr ""
+
+#: tour_guide_bot/bot/admin/configure/protect_content.py:133
+msgctxt "admin-configure"
+msgid "Content protection was enabled."
+msgstr ""
+
+#: tour_guide_bot/bot/admin/configure/protect_content.py:140
+msgctxt "admin-configure"
+msgid "Content protection was disabled."
+msgstr ""
+
 #: tour_guide_bot/bot/admin/configure/messages/__init__.py:72
 msgctxt "admin-configure"
 msgid "Please select the language for the {} you want to edit."
@@ -392,7 +429,7 @@ msgid "Bot's {} has been changed."
 msgstr ""
 
 #: tour_guide_bot/bot/admin/configure/messages/support.py:9
-#: tour_guide_bot/web/admin/configuration.py:42
+#: tour_guide_bot/web/admin/configuration.py:47
 msgctxt "admin-configure"
 msgid "Support message"
 msgstr ""
@@ -403,7 +440,7 @@ msgid "support message"
 msgstr ""
 
 #: tour_guide_bot/bot/admin/configure/messages/terms.py:9
-#: tour_guide_bot/web/admin/configuration.py:45
+#: tour_guide_bot/web/admin/configuration.py:50
 msgctxt "admin-configure"
 msgid "Terms & Conditions"
 msgstr ""
@@ -414,7 +451,7 @@ msgid "terms & conditions"
 msgstr ""
 
 #: tour_guide_bot/bot/admin/configure/messages/welcome.py:9
-#: tour_guide_bot/web/admin/configuration.py:39
+#: tour_guide_bot/web/admin/configuration.py:44
 msgctxt "admin-configure"
 msgid "Guide welcome message"
 msgstr ""
@@ -1062,7 +1099,7 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: tour_guide_bot/bot/guide/start.py:151 tour_guide_bot/bot/guide/tours.py:436
+#: tour_guide_bot/bot/guide/start.py:151 tour_guide_bot/bot/guide/tours.py:441
 msgctxt "guest-tour"
 msgid ""
 "Unfortunately, no tours are available for you at the moment. Approving "
@@ -1081,49 +1118,49 @@ msgctxt "guest-bot-start"
 msgid "I don't recognize you! Please send me your phone number."
 msgstr ""
 
-#: tour_guide_bot/bot/guide/tours.py:273
+#: tour_guide_bot/bot/guide/tours.py:278
 msgctxt "guide-tour"
 msgid "Are you ready to continue?"
 msgstr ""
 
-#: tour_guide_bot/bot/guide/tours.py:278
+#: tour_guide_bot/bot/guide/tours.py:283
 msgctxt "guide-tour"
 msgid "Next section"
 msgstr ""
 
-#: tour_guide_bot/bot/guide/tours.py:318
+#: tour_guide_bot/bot/guide/tours.py:323
 msgctxt "cli"
 msgid "Tour #{0} doesn't have a language {1} preferred by the user {2}."
 msgstr ""
 
-#: tour_guide_bot/bot/guide/tours.py:327
+#: tour_guide_bot/bot/guide/tours.py:332
 msgctxt "cli"
 msgid "Tour #{0} doesn't have a default app language {1}."
 msgstr ""
 
-#: tour_guide_bot/bot/guide/tours.py:374
+#: tour_guide_bot/bot/guide/tours.py:379
 msgctxt "guide-tour"
 msgid "Unfortunately, you don't have access to the requested tour."
 msgstr ""
 
-#: tour_guide_bot/bot/guide/tours.py:398
+#: tour_guide_bot/bot/guide/tours.py:403
 msgctxt "guest-tour"
 msgid "Only one tour is available for you: {}."
 msgstr ""
 
-#: tour_guide_bot/bot/guide/tours.py:408
+#: tour_guide_bot/bot/guide/tours.py:413
 msgctxt "guest-tour"
 msgid "You have selected the tour {}."
 msgstr ""
 
-#: tour_guide_bot/bot/guide/tours.py:416
+#: tour_guide_bot/bot/guide/tours.py:421
 msgctxt "guest-tour"
 msgid ""
 "Now the bot will send you several messages, please start the tour with "
 "the following one 👇"
 msgstr ""
 
-#: tour_guide_bot/bot/guide/tours.py:427
+#: tour_guide_bot/bot/guide/tours.py:432
 msgctxt "guide-tour"
 msgid "Please select a tour you want to start."
 msgstr ""
@@ -1249,12 +1286,17 @@ msgctxt "web-generic"
 msgid "Suggest audio to voice conversion"
 msgstr ""
 
-#: tour_guide_bot/web/templates/admin/configuration.html:34
+#: tour_guide_bot/web/templates/admin/configuration.html:27
+msgctxt "web-generic"
+msgid "Protect tour content from forwarding and saving"
+msgstr ""
+
+#: tour_guide_bot/web/templates/admin/configuration.html:40
 msgctxt "web-generic"
 msgid "Messages"
 msgstr ""
 
-#: tour_guide_bot/web/templates/admin/configuration.html:67
+#: tour_guide_bot/web/templates/admin/configuration.html:73
 msgctxt "web-generic"
 msgid "Payment settings"
 msgstr ""
