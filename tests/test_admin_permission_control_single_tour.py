@@ -50,6 +50,11 @@ async def test_approve_known_user(
     ), "Unexpected grant confirmation"
 
     await admin_conversation.send_message("/guest")
+    response: Message = await admin_conversation.get_response()
+    assert (
+        "in guest mode now" in response.message
+    ), "Unexpected message in response to the guest mode switch"
+
     await admin_conversation.send_message("/tours")
 
     response: Message = await admin_conversation.get_response()
@@ -96,6 +101,11 @@ async def test_approve_unknown_user(
     ), "Unexpected grant confirmation"
 
     await admin_conversation.send_message("/guest")
+    response: Message = await admin_conversation.get_response()
+    assert (
+        "in guest mode now" in response.message
+    ), "Unexpected message in response to the guest mode switch"
+
     await admin_conversation.send_message("/start")
 
     # skip welcome message
