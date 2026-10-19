@@ -45,7 +45,7 @@ def prepare_app(
     app.enabled_languages = enabled_languages
     app.default_language = default_language
     app.persistence = PicklePersistence(
-        persistence_path + sep + "telegram_guide_bot_storage.pickle", update_interval=60
+        persistence_path + sep + "telegram_guide_bot_storage.pickle", update_interval=30
     )
 
     return app
