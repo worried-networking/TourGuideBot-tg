@@ -26,18 +26,20 @@ class SettingsKey(enum.Enum):
     delay_between_messages = 3
     support_message = 4
     terms_message = 5
+    protect_content = 6
 
 
 class Settings(Base):
     __tablename__ = "settings"
     __mapper_args__ = {"eager_defaults": True}
 
-    __bool_settings = [SettingsKey.audio_to_voice]
+    __bool_settings = [SettingsKey.audio_to_voice, SettingsKey.protect_content]
 
     # Global default is None
     DEFAULT_VALUES: ClassVar[dict[SettingsKey, str]] = {
         SettingsKey.delay_between_messages: "4",
         SettingsKey.audio_to_voice: "yes",
+        SettingsKey.protect_content: "yes",
     }
 
     id: Mapped[int] = Column(Integer, primary_key=True)
