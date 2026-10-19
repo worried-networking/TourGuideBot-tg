@@ -1,4 +1,4 @@
-from asyncio import sleep
+from asyncio import Task, sleep
 from datetime import datetime
 from typing import Sequence
 
@@ -41,6 +41,9 @@ class ToursCommandHandler(SelectTourHandler):
 
     STATE_TOUR_IN_PROGRESS = 1
 
+    # Running section sends by user id; deliberately not in the (pickled) context.
+    _running_sends: dict[int, Task] = {}
+
     @classmethod
     def get_handlers(cls):
         return [
@@ -62,6 +65,8 @@ class ToursCommandHandler(SelectTourHandler):
                 ],
                 name="guest-tour",
                 persistent=True,
+                # A section whose send failed or was interrupted leaves no buttons
+                allow_reentry=True,
             )
         ]
 
@@ -108,9 +113,6 @@ class ToursCommandHandler(SelectTourHandler):
 
         section = translation.sections[position]
 
-        bot = context.bot
-        chat_id = update.effective_chat.id
-
         is_last_section = position == len(translation.sections) - 1
 
         delay_between_messages_state = await Settings.load(
@@ -122,9 +124,83 @@ class ToursCommandHandler(SelectTourHandler):
             )
         ).is_enabled
 
-        for content in section.content:
+        delay = delay_between_messages_state.value
+
+        # The send runs in a background task after the handler (and its db
+        # session) is gone, so only plain data is passed to it.
+        contents = [(c.message_type, c.content) for c in section.content]
+
+        user_id = update.effective_user.id
+        self.cancel_running_send(user_id)
+
+        task = context.application.create_task(
+            self.send_section(
+                update,
+                context,
+                update.effective_chat.id,
+                contents,
+                delay,
+                protect_content,
+                user.language,
+                translation.id,
+                position,
+                is_last_section,
+            ),
+            update=update,
+        )
+        self._running_sends[user_id] = task
+        task.add_done_callback(
+            lambda t_, user_id=user_id: self._forget_send(user_id, t_)
+        )
+
+        if not is_last_section:
+            return self.STATE_TOUR_IN_PROGRESS
+
+        return ConversationHandler.END
+
+    @classmethod
+    def cancel_running_send(cls, user_id: int):
+        task = cls._running_sends.pop(user_id, None)
+        if task and not task.done():
+            task.cancel()
+
+    @classmethod
+    def cancel_all_running_sends(cls):
+        for user_id in list(cls._running_sends):
+            cls.cancel_running_send(user_id)
+
+    @classmethod
+    def _forget_send(cls, user_id: int, task: Task):
+        if cls._running_sends.get(user_id) is task:
+            del cls._running_sends[user_id]
+
+    async def cancel_without_conversation(
+        self, update: Update, context: ContextTypes.DEFAULT_TYPE
+    ):
+        if update.effective_user:
+            self.cancel_running_send(update.effective_user.id)
+
+        await super().cancel_without_conversation(update, context)
+
+    async def send_section(
+        self,
+        update: Update,
+        context: ContextTypes.DEFAULT_TYPE,
+        chat_id: int,
+        contents: Sequence[tuple[MessageType, dict]],
+        delay: str,
+        protect_content: bool,
+        language: str,
+        translation_id: int,
+        position: int,
+        is_last_section: bool,
+    ):
+        # Runs as a background task: must not touch self.db_session.
+        bot = context.bot
+
+        for message_type, content_data in contents:
             chat_action = ChatAction.TYPING
-            match content.message_type:
+            match message_type:
                 case MessageType.location:
                     chat_action = (
                         ChatAction.TYPING
@@ -138,7 +214,7 @@ class ToursCommandHandler(SelectTourHandler):
                 case MessageType.photo:
                     chat_action = ChatAction.UPLOAD_PHOTO
                 case MessageType.media_group:
-                    match content.content["files"]:
+                    match content_data["files"]:
                         case MessageType.audio:
                             chat_action = ChatAction.UPLOAD_VOICE
                         case MessageType.video:
@@ -146,15 +222,15 @@ class ToursCommandHandler(SelectTourHandler):
                         case MessageType.photo:
                             chat_action = ChatAction.UPLOAD_PHOTO
 
-            if chat_action and int(delay_between_messages_state.value) > 0:
+            if chat_action and int(delay) > 0:
                 await bot.send_chat_action(chat_id=chat_id, action=chat_action)
-                await sleep(float(delay_between_messages_state.value))
+                await sleep(float(delay))
 
-            match content.message_type:
+            match message_type:
                 case MessageType.text:
                     await bot.send_message(
                         chat_id,
-                        content.content["text"],
+                        content_data["text"],
                         ParseMode.MARKDOWN_V2,
                         disable_web_page_preview=True,
                         disable_notification=True,
@@ -164,8 +240,8 @@ class ToursCommandHandler(SelectTourHandler):
                 case MessageType.location:
                     await bot.send_location(
                         chat_id,
-                        content.content["latitude"],
-                        content.content["longitude"],
+                        content_data["latitude"],
+                        content_data["longitude"],
                         disable_notification=True,
                         protect_content=protect_content,
                     )
@@ -173,8 +249,8 @@ class ToursCommandHandler(SelectTourHandler):
                 case MessageType.voice:
                     await bot.send_voice(
                         chat_id,
-                        content.content["files"][0]["file_id"],
-                        caption=content.content["files"][0].get("caption"),
+                        content_data["files"][0]["file_id"],
+                        caption=content_data["files"][0].get("caption"),
                         parse_mode=ParseMode.MARKDOWN_V2,
                         disable_notification=True,
                         protect_content=protect_content,
@@ -183,8 +259,8 @@ class ToursCommandHandler(SelectTourHandler):
                 case MessageType.video_note:
                     await bot.send_video_note(
                         chat_id,
-                        content.content["files"][0]["file_id"],
-                        caption=content.content["files"][0].get("caption"),
+                        content_data["files"][0]["file_id"],
+                        caption=content_data["files"][0].get("caption"),
                         parse_mode=ParseMode.MARKDOWN_V2,
                         disable_notification=True,
                         protect_content=protect_content,
@@ -193,8 +269,8 @@ class ToursCommandHandler(SelectTourHandler):
                 case MessageType.audio:
                     await bot.send_audio(
                         chat_id,
-                        content.content["files"][0]["file_id"],
-                        caption=content.content["files"][0].get("caption"),
+                        content_data["files"][0]["file_id"],
+                        caption=content_data["files"][0].get("caption"),
                         parse_mode=ParseMode.MARKDOWN_V2,
                         disable_notification=True,
                         protect_content=protect_content,
@@ -203,8 +279,8 @@ class ToursCommandHandler(SelectTourHandler):
                 case MessageType.video:
                     await bot.send_video(
                         chat_id,
-                        content.content["files"][0]["file_id"],
-                        caption=content.content["files"][0].get("caption"),
+                        content_data["files"][0]["file_id"],
+                        caption=content_data["files"][0].get("caption"),
                         parse_mode=ParseMode.MARKDOWN_V2,
                         disable_notification=True,
                         protect_content=protect_content,
@@ -213,8 +289,8 @@ class ToursCommandHandler(SelectTourHandler):
                 case MessageType.photo:
                     await bot.send_photo(
                         chat_id,
-                        content.content["files"][0]["file_id"],
-                        caption=content.content["files"][0].get("caption"),
+                        content_data["files"][0]["file_id"],
+                        caption=content_data["files"][0].get("caption"),
                         parse_mode=ParseMode.MARKDOWN_V2,
                         disable_notification=True,
                         protect_content=protect_content,
@@ -223,8 +299,8 @@ class ToursCommandHandler(SelectTourHandler):
                 case MessageType.animation:
                     await bot.send_animation(
                         chat_id,
-                        content.content["files"][0]["file_id"],
-                        caption=content.content["files"][0].get("caption"),
+                        content_data["files"][0]["file_id"],
+                        caption=content_data["files"][0].get("caption"),
                         parse_mode=ParseMode.MARKDOWN_V2,
                         disable_notification=True,
                         protect_content=protect_content,
@@ -233,7 +309,7 @@ class ToursCommandHandler(SelectTourHandler):
                 case MessageType.media_group:
                     media_group = []
 
-                    for f in content.content["files"]:
+                    for f in content_data["files"]:
                         match MessageType[f["type"]]:
                             case MessageType.audio:
                                 media_group.append(
@@ -268,26 +344,26 @@ class ToursCommandHandler(SelectTourHandler):
                     )
 
         if not is_last_section:
-            if int(delay_between_messages_state.value) > 0:
+            if int(delay) > 0:
                 await bot.send_chat_action(chat_id=chat_id, action=ChatAction.TYPING)
-                await sleep(float(delay_between_messages_state.value))
+                await sleep(float(delay))
 
             await self.reply_text(
                 update,
                 context,
-                t(user.language).pgettext("guide-tour", "Are you ready to continue?"),
+                t(language).pgettext("guide-tour", "Are you ready to continue?"),
                 reply_markup=InlineKeyboardMarkup(
                     [
                         [
                             InlineKeyboardButton(
-                                t(user.language).pgettext("guide-tour", "Next section"),
+                                t(language).pgettext("guide-tour", "Next section"),
                                 callback_data="tour_change_section:%d:%d"
-                                % (translation.id, position + 1),
+                                % (translation_id, position + 1),
                             )
                         ],
                         [
                             InlineKeyboardButton(
-                                t(user.language).pgettext("bot-generic", "Abort"),
+                                t(language).pgettext("bot-generic", "Abort"),
                                 callback_data="cancel",
                             )
                         ],

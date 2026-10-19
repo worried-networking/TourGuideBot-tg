@@ -128,7 +128,7 @@ msgstr ""
 #: tour_guide_bot/bot/admin/tour/add_content.py:519
 #: tour_guide_bot/bot/admin/tour/delete.py:84
 #: tour_guide_bot/bot/admin/tour/pricing/delete.py:142
-#: tour_guide_bot/bot/guide/tours.py:290
+#: tour_guide_bot/bot/guide/tours.py:366
 #: tour_guide_bot/helpers/language_selector.py:81
 #: tour_guide_bot/helpers/payment_provider_selector.py:95
 #: tour_guide_bot/helpers/product_selector.py:116
@@ -211,8 +211,8 @@ msgstr ""
 #: tour_guide_bot/bot/admin/tour/pricing/delete.py:167
 #: tour_guide_bot/bot/guide/purchase.py:95
 #: tour_guide_bot/bot/guide/purchase.py:109
-#: tour_guide_bot/bot/guide/tours.py:103 tour_guide_bot/bot/guide/tours.py:340
-#: tour_guide_bot/bot/guide/tours.py:369
+#: tour_guide_bot/bot/guide/tours.py:108 tour_guide_bot/bot/guide/tours.py:416
+#: tour_guide_bot/bot/guide/tours.py:445
 #: tour_guide_bot/helpers/language_selector.py:128
 #: tour_guide_bot/helpers/payment_provider_selector.py:129
 #: tour_guide_bot/helpers/product_selector.py:148
@@ -1099,7 +1099,7 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: tour_guide_bot/bot/guide/start.py:151 tour_guide_bot/bot/guide/tours.py:443
+#: tour_guide_bot/bot/guide/start.py:151 tour_guide_bot/bot/guide/tours.py:519
 msgctxt "guest-tour"
 msgid ""
 "Unfortunately, no tours are available for you at the moment. Approving "
@@ -1118,49 +1118,49 @@ msgctxt "guest-bot-start"
 msgid "I don't recognize you! Please send me your phone number."
 msgstr ""
 
-#: tour_guide_bot/bot/guide/tours.py:278
+#: tour_guide_bot/bot/guide/tours.py:354
 msgctxt "guide-tour"
 msgid "Are you ready to continue?"
 msgstr ""
 
-#: tour_guide_bot/bot/guide/tours.py:283
+#: tour_guide_bot/bot/guide/tours.py:359
 msgctxt "guide-tour"
 msgid "Next section"
 msgstr ""
 
-#: tour_guide_bot/bot/guide/tours.py:323
+#: tour_guide_bot/bot/guide/tours.py:399
 msgctxt "cli"
 msgid "Tour #{0} doesn't have a language {1} preferred by the user {2}."
 msgstr ""
 
-#: tour_guide_bot/bot/guide/tours.py:332
+#: tour_guide_bot/bot/guide/tours.py:408
 msgctxt "cli"
 msgid "Tour #{0} doesn't have a default app language {1}."
 msgstr ""
 
-#: tour_guide_bot/bot/guide/tours.py:381
+#: tour_guide_bot/bot/guide/tours.py:457
 msgctxt "guide-tour"
 msgid "Unfortunately, you don't have access to the requested tour."
 msgstr ""
 
-#: tour_guide_bot/bot/guide/tours.py:405
+#: tour_guide_bot/bot/guide/tours.py:481
 msgctxt "guest-tour"
 msgid "Only one tour is available for you: {}."
 msgstr ""
 
-#: tour_guide_bot/bot/guide/tours.py:415
+#: tour_guide_bot/bot/guide/tours.py:491
 msgctxt "guest-tour"
 msgid "You have selected the tour {}."
 msgstr ""
 
-#: tour_guide_bot/bot/guide/tours.py:423
+#: tour_guide_bot/bot/guide/tours.py:499
 msgctxt "guest-tour"
 msgid ""
 "Now the bot will send you several messages, please start the tour with "
 "the following one 👇"
 msgstr ""
 
-#: tour_guide_bot/bot/guide/tours.py:434
+#: tour_guide_bot/bot/guide/tours.py:510
 msgctxt "guide-tour"
 msgid "Please select a tour you want to start."
 msgstr ""
