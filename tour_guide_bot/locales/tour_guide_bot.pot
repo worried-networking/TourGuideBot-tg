@@ -72,7 +72,7 @@ msgctxt "cli"
 msgid "Up and runnig!"
 msgstr ""
 
-#: tour_guide_bot/bot/app.py:95
+#: tour_guide_bot/bot/app.py:108
 msgctxt "guide-bot-notification"
 msgid ""
 "Hey! You have a new tour available — \"{0}\". Send /tours to start the "

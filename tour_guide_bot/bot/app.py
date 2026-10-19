@@ -1,3 +1,4 @@
+from asyncio import create_task
 from typing import Sequence
 
 from sqlalchemy import select
@@ -45,6 +46,18 @@ class Application(BaseApplication):
         )
 
         await super().initialize()
+
+    async def stop(self) -> None:
+        # stop() awaits the background tasks before saving the persistence, a
+        # half-sent tour section mustn't hold the shutdown up
+        cancel_sends = create_task(self.cancel_sends_after_updates())
+        await super().stop()
+        await cancel_sends
+
+    async def cancel_sends_after_updates(self) -> None:
+        # Updates still in the queue can start new sends
+        await self.update_queue.join()
+        ToursCommandHandler.cancel_all_running_sends()
 
     async def debug_log_handler(
         self, update: Update, context: ContextTypes.DEFAULT_TYPE
