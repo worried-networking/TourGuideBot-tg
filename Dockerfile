@@ -1,4 +1,4 @@
-FROM python:3.12-alpine AS builder
+FROM python:3.15-alpine AS builder
 
 RUN apk add build-base libffi-dev libpq-dev mariadb-connector-c-dev curl \
   && adduser -h /home/tg -D -u 1000 tg \
@@ -12,7 +12,7 @@ RUN sh <(curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs) -y \
   && curl -LsSf https://astral.sh/uv/install.sh | sh \
   && uv sync --frozen --no-dev
 
-FROM python:3.12-alpine
+FROM python:3.15-alpine
 RUN apk add libpq mariadb-connector-c ffmpeg libogg opus lame \
   && adduser -h /home/tg -D -u 1000 tg \
   && install -d -o tg -g tg /home/tg/app
