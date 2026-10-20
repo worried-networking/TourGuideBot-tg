@@ -14,7 +14,7 @@ from telegram.request import HTTPXRequest
 from telethon import TelegramClient
 from telethon.sessions import StringSession
 from telethon.tl.custom.conversation import Conversation
-from telethon.tl.types import KeyboardButtonRequestPhone
+from telethon.tl.types import ButtonTypeRequestPhone
 
 from tour_guide_bot.bot.app import Application
 from tour_guide_bot.cli import prepare_app
@@ -614,7 +614,7 @@ async def get_phone_number_request(conversation: Conversation):
     assert response.reply_markup.rows, "No reply markup rows"
     assert response.reply_markup.rows[0].buttons, "No reply markup buttons"
     assert isinstance(
-        response.reply_markup.rows[0].buttons[0], KeyboardButtonRequestPhone
+        response.reply_markup.rows[0].buttons[0].type, ButtonTypeRequestPhone
     ), "No request phone button"
     return response
 
