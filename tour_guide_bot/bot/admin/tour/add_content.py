@@ -5,6 +5,7 @@ from typing import ClassVar
 import ffmpeg
 from sqlalchemy import select
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
+from telegram.error import BadRequest
 from telegram.ext import (
     CallbackContext,
     CallbackQueryHandler,
@@ -486,16 +487,27 @@ class AddContentCommandHandler(AdminProtectedBaseHandlerCallback, ABC):
                 ),
             )
             context.user_data["voice_file_id"] = message.voice.file_id
-        except Exception:
-            log.exception(
-                "Failed to upload voice message %s", context.user_data["audio_file_id"]
-            )
-            await bot.edit_message_text(
-                t(language).pgettext(
+        except Exception as e:
+            if isinstance(e, BadRequest) and e.message == "Voice_messages_forbidden":
+                text = t(language).pgettext(
+                    "admin-tours",
+                    "I can't send you the voice message because your privacy"
+                    " settings block voice messages. Allow them for this bot in"
+                    " Settings → Privacy and Security → Voice Messages and try"
+                    " again, or store the original audio.",
+                )
+            else:
+                log.exception(
+                    "Failed to upload voice message %s",
+                    context.user_data["audio_file_id"],
+                )
+                text = t(language).pgettext(
                     "admin-tours",
                     "Something went wrong when I tried to upload the file."
                     " What should I do now?",
-                ),
+                )
+            await bot.edit_message_text(
+                text,
                 chat_id=context.job.data["chat_id"],
                 message_id=context.job.data["message_id"],
                 reply_markup=InlineKeyboardMarkup(

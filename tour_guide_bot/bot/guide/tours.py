@@ -184,6 +184,12 @@ class ToursCommandHandler(SelectTourHandler):
 
         await super().cancel_without_conversation(update, context)
 
+    @staticmethod
+    async def reupload(bot, file_id: str, filename: str) -> InputFile:
+        """Fetch a file for sending again as a different type: file_ids are typed."""
+        file = await bot.get_file(file_id)
+        return InputFile(bytes(await file.download_as_bytearray()), filename=filename)
+
     async def send_section(
         self,
         update: Update,
@@ -264,12 +270,10 @@ class ToursCommandHandler(SelectTourHandler):
 
                         # The user's privacy settings block voice messages. A
                         # voice file_id can't be sent as audio, so re-upload it.
-                        voice = await bot.get_file(content_data["files"][0]["file_id"])
                         await bot.send_audio(
                             chat_id,
-                            InputFile(
-                                bytes(await voice.download_as_bytearray()),
-                                filename="voice.ogg",
+                            await self.reupload(
+                                bot, content_data["files"][0]["file_id"], "voice.ogg"
                             ),
                             caption=content_data["files"][0].get("caption"),
                             parse_mode=ParseMode.MARKDOWN_V2,
@@ -278,14 +282,31 @@ class ToursCommandHandler(SelectTourHandler):
                         )
 
                 case MessageType.video_note:
-                    await bot.send_video_note(
-                        chat_id,
-                        content_data["files"][0]["file_id"],
-                        caption=content_data["files"][0].get("caption"),
-                        parse_mode=ParseMode.MARKDOWN_V2,
-                        disable_notification=True,
-                        protect_content=protect_content,
-                    )
+                    try:
+                        await bot.send_video_note(
+                            chat_id,
+                            content_data["files"][0]["file_id"],
+                            caption=content_data["files"][0].get("caption"),
+                            parse_mode=ParseMode.MARKDOWN_V2,
+                            disable_notification=True,
+                            protect_content=protect_content,
+                        )
+                    except BadRequest as e:
+                        if e.message != "Voice_messages_forbidden":
+                            raise
+
+                        # The same privacy setting blocks video notes; send the
+                        # file as a regular video instead.
+                        await bot.send_video(
+                            chat_id,
+                            await self.reupload(
+                                bot, content_data["files"][0]["file_id"], "video.mp4"
+                            ),
+                            caption=content_data["files"][0].get("caption"),
+                            parse_mode=ParseMode.MARKDOWN_V2,
+                            disable_notification=True,
+                            protect_content=protect_content,
+                        )
 
                 case MessageType.audio:
                     await bot.send_audio(
