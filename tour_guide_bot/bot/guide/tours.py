@@ -9,10 +9,12 @@ from telegram import (
     InlineKeyboardMarkup,
     InputMediaAudio,
     InputMediaPhoto,
+    InputFile,
     InputMediaVideo,
     Update,
 )
 from telegram.constants import ChatAction, ParseMode
+from telegram.error import BadRequest
 from telegram.ext import (
     CallbackQueryHandler,
     CommandHandler,
@@ -247,14 +249,33 @@ class ToursCommandHandler(SelectTourHandler):
                     )
 
                 case MessageType.voice:
-                    await bot.send_voice(
-                        chat_id,
-                        content_data["files"][0]["file_id"],
-                        caption=content_data["files"][0].get("caption"),
-                        parse_mode=ParseMode.MARKDOWN_V2,
-                        disable_notification=True,
-                        protect_content=protect_content,
-                    )
+                    try:
+                        await bot.send_voice(
+                            chat_id,
+                            content_data["files"][0]["file_id"],
+                            caption=content_data["files"][0].get("caption"),
+                            parse_mode=ParseMode.MARKDOWN_V2,
+                            disable_notification=True,
+                            protect_content=protect_content,
+                        )
+                    except BadRequest as e:
+                        if e.message != "Voice_messages_forbidden":
+                            raise
+
+                        # The user's privacy settings block voice messages. A
+                        # voice file_id can't be sent as audio, so re-upload it.
+                        voice = await bot.get_file(content_data["files"][0]["file_id"])
+                        await bot.send_audio(
+                            chat_id,
+                            InputFile(
+                                bytes(await voice.download_as_bytearray()),
+                                filename="voice.ogg",
+                            ),
+                            caption=content_data["files"][0].get("caption"),
+                            parse_mode=ParseMode.MARKDOWN_V2,
+                            disable_notification=True,
+                            protect_content=protect_content,
+                        )
 
                 case MessageType.video_note:
                     await bot.send_video_note(
