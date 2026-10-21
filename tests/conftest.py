@@ -108,9 +108,11 @@ async def db_engine(test_db_file: Path):
     import tour_guide_bot.models.guide as _guite  # noqa: F401
     import tour_guide_bot.models.settings as _settings  # noqa: F401
     import tour_guide_bot.models.telegram as _telegram  # noqa: F401
-    from tour_guide_bot.models import Base
+    from tour_guide_bot.models import Base, configure_engine
 
-    engine = create_async_engine("sqlite+aiosqlite:///{}".format(test_db_file))
+    engine = configure_engine(
+        create_async_engine("sqlite+aiosqlite:///{}".format(test_db_file))
+    )
 
     async with engine.begin() as connection:
         await connection.run_sync(Base.metadata.create_all)
@@ -377,37 +379,83 @@ def unitialized_app(
     yield app
 
 
+async def start_app(app: Application) -> None:
+    await app.initialize()
+    if app.post_init:
+        await app.post_init(app)
+    await app.updater.start_polling()
+    await app.start()
+
+
+async def stop_app(app: Application) -> None:
+    try:
+        if app.updater.running:
+            await app.updater.stop()
+    except:
+        pass
+
+    try:
+        if app.running:
+            await app.stop()
+
+        if app.post_stop:
+            await app.post_stop(app)
+
+        await app.shutdown()
+
+        if app.post_shutdown:
+            await app.post_shutdown(app)
+    except:
+        pass
+
+
 @pytest.fixture
 async def unconfigured_app(unitialized_app: Application):
-    await unitialized_app.initialize()
-    if unitialized_app.post_init:
-        await unitialized_app.post_init(unitialized_app)
-    await unitialized_app.updater.start_polling()
-    await unitialized_app.start()
+    await start_app(unitialized_app)
 
     yield unitialized_app
 
     try:
-        if unitialized_app.updater.running:
-            await unitialized_app.updater.stop()
-    except:
-        pass
-
-    try:
-        if unitialized_app.running:
-            await unitialized_app.stop()
-
-        if unitialized_app.post_stop:
-            await unitialized_app.post_stop(unitialized_app)
-
-        await unitialized_app.shutdown()
-
-        if unitialized_app.post_shutdown:
-            await unitialized_app.post_shutdown(unitialized_app)
-    except:
-        pass
+        await stop_app(unitialized_app)
     finally:
         await asyncio.sleep(2)
+
+
+@pytest.fixture
+async def restart_app(
+    app: Application,
+    bot_token: str,
+    db_engine: AsyncEngine,
+    enabled_languages: list[str],
+    default_language: str,
+    persistence_path: Path,
+    bot_requests: tuple[SharedHTTPXRequest, SharedHTTPXRequest],
+):
+    """Stop the running bot the way a deploy does, and start a new one on the same storage."""
+    started: list[Application] = []
+
+    async def restart() -> Application:
+        await stop_app(started[-1] if started else app)
+
+        request, get_updates_request = bot_requests
+        new_app = prepare_app(
+            bot_token,
+            db_engine,
+            enabled_languages,
+            default_language,
+            str(persistence_path),
+            request=request,
+            get_updates_request=get_updates_request,
+        )
+        started.append(new_app)
+        await start_app(new_app)
+
+        return new_app
+
+    yield restart
+
+    for started_app in started:
+        await stop_app(started_app)
 
 
 @pytest.fixture

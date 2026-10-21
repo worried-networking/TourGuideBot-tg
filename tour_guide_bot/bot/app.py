@@ -47,6 +47,10 @@ class Application(BaseApplication):
 
         await super().initialize()
 
+    async def start(self) -> None:
+        await super().start()
+        self.create_task(ToursCommandHandler.resume_deliveries(self))
+
     async def stop(self) -> None:
         # stop() awaits the background tasks before saving the persistence, a
         # half-sent tour section mustn't hold the shutdown up

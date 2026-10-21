@@ -1,6 +1,6 @@
 from typing import ClassVar
 
-from sqlalchemy import func, select
+from sqlalchemy import delete, func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
@@ -16,7 +16,7 @@ from telegram.ext import (
 from tour_guide_bot import t
 from tour_guide_bot.helpers.telegram import SubcommandHandler, get_tour_title
 from tour_guide_bot.helpers.tours_selector import SelectTourHandler
-from tour_guide_bot.models.guide import Tour
+from tour_guide_bot.models.guide import Tour, TourDelivery
 
 
 class DeleteHandler(SubcommandHandler, SelectTourHandler):
@@ -116,6 +116,13 @@ class DeleteHandler(SubcommandHandler, SelectTourHandler):
 
         tour_title = get_tour_title(tour, user.language, context)
 
+        await self.db_session.execute(
+            delete(TourDelivery).where(
+                TourDelivery.tour_translation_id.in_(
+                    [translation.id for translation in tour.translations]
+                )
+            )
+        )
         await self.db_session.delete(tour)
         await self.db_session.commit()
 

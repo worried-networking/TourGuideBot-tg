@@ -3,6 +3,7 @@ from typing import Optional
 
 from sqlalchemy import (
     JSON,
+    BigInteger,
     Boolean,
     Column,
     DateTime,
@@ -279,3 +280,32 @@ class Guest(Base):
     updated_ts = Column(
         DateTime, nullable=False, default=func.now(), onupdate=func.now()
     )
+
+
+class TourDelivery(Base):
+    """A tour section that is still being sent to a Telegram user.
+
+    The row exists only while the section is being sent, so an interrupted send
+    can be resumed after a restart.
+    """
+
+    __tablename__ = "tour_delivery"
+
+    telegram_user_id: Mapped[int] = Column(
+        BigInteger,
+        ForeignKey("telegram_user.id"),
+        primary_key=True,
+        autoincrement=False,
+    )
+    chat_id: Mapped[int] = Column(BigInteger, nullable=False)
+    tour_translation_id: Mapped[int] = Column(
+        Integer, ForeignKey("tour_translation.id"), nullable=False, index=True
+    )
+    section_position: Mapped[int] = Column(SmallInteger, nullable=False)
+    # TourSectionContent.position of the first part that wasn't sent yet
+    next_content_position: Mapped[int] = Column(SmallInteger, nullable=False)
+    # Identifies the send that owns the row: a newer send replaces it, and the
+    # older one must not touch the row any more
+    run_id: Mapped[str] = Column(String(32), nullable=False)
+    created_ts = Column(DateTime, nullable=False, server_default=func.now())
+    updated_ts = Column(DateTime, nullable=False)

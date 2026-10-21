@@ -21,6 +21,7 @@ from telegram.warnings import PTBUserWarning
 from tour_guide_bot import log, set_fallback_locale, t
 from tour_guide_bot.bot.app import Application
 from tour_guide_bot.helpers.update_processor import PerUserUpdateProcessor
+from tour_guide_bot.models import configure_engine
 from tour_guide_bot.web import routes
 
 
@@ -165,7 +166,7 @@ def run():
     handler.setFormatter(logging.Formatter(log_format, datefmt="%Y-%m-%d %H:%M:%S"))
     log.addHandler(handler)
 
-    engine = create_async_engine(args.db)
+    engine = configure_engine(create_async_engine(args.db))
 
     loop = asyncio.new_event_loop()
 

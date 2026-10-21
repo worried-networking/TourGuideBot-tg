@@ -1,9 +1,9 @@
-from unittest.mock import AsyncMock, MagicMock
+from unittest.mock import AsyncMock
 
 import pytest
 from telegram.error import BadRequest
 
-from tour_guide_bot.bot.guide.tours import ToursCommandHandler
+from tour_guide_bot.bot.guide.tours import SectionDelivery, ToursCommandHandler
 from tour_guide_bot.models.guide import MessageType
 
 
@@ -20,23 +20,26 @@ async def test_other_errors_are_not_swallowed(
 ):
     bot = AsyncMock()
     getattr(bot, blocked_send).side_effect = BadRequest("Chat not found")
-    context = MagicMock()
-    context.bot = bot
 
-    # send_section runs after the handler's db session is gone, so it gets none
-    handler = ToursCommandHandler(db_session=None)
+    # send_section skips a failed part, the fallback mustn't hide the failure
     with pytest.raises(BadRequest):
-        await handler.send_section(
-            None,
-            context,
-            chat_id=42,
-            contents=[(message_type, {"files": [{"file_id": "original-file-id"}]})],
-            delay="0",
-            protect_content=True,
-            language="en",
-            translation_id=1,
-            position=0,
-            is_last_section=True,
+        await ToursCommandHandler.send_part(
+            bot,
+            SectionDelivery(
+                chat_id=42,
+                user_id=42,
+                run_id="run",
+                translation_id=1,
+                position=0,
+                is_last_section=True,
+                language="en",
+                protect_content=True,
+                delay="0",
+                contents=[],
+            ),
+            message_type,
+            {"files": [{"file_id": "original-file-id"}]},
+            voice_messages_blocked=False,
         )
 
     bot.send_document.assert_not_awaited()
