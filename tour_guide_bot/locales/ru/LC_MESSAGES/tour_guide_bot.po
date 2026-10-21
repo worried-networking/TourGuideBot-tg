@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2026-10-20 09:19\n"
+"PO-Revision-Date: 2026-10-21 08:23\n"
 
 #: tour_guide_bot/cli.py:65
 msgctxt "cli"
@@ -130,13 +130,13 @@ msgstr "К сожалению, у вас нет ни одной экскурси
 #: tour_guide_bot/bot/admin/configure/protect_content.py:105
 #: tour_guide_bot/bot/admin/revoke.py:227
 #: tour_guide_bot/bot/admin/revoke.py:285
-#: tour_guide_bot/bot/admin/tour/add_content.py:383
-#: tour_guide_bot/bot/admin/tour/add_content.py:440
-#: tour_guide_bot/bot/admin/tour/add_content.py:481
-#: tour_guide_bot/bot/admin/tour/add_content.py:519
+#: tour_guide_bot/bot/admin/tour/add_content.py:384
+#: tour_guide_bot/bot/admin/tour/add_content.py:441
+#: tour_guide_bot/bot/admin/tour/add_content.py:482
+#: tour_guide_bot/bot/admin/tour/add_content.py:531
 #: tour_guide_bot/bot/admin/tour/delete.py:84
 #: tour_guide_bot/bot/admin/tour/pricing/delete.py:142
-#: tour_guide_bot/bot/guide/tours.py:366
+#: tour_guide_bot/bot/guide/tours.py:445
 #: tour_guide_bot/helpers/language_selector.py:81
 #: tour_guide_bot/helpers/payment_provider_selector.py:95
 #: tour_guide_bot/helpers/product_selector.py:116
@@ -224,8 +224,8 @@ msgstr "Вы можете использовать следующие коман
 #: tour_guide_bot/bot/admin/tour/pricing/delete.py:168
 #: tour_guide_bot/bot/guide/purchase.py:96
 #: tour_guide_bot/bot/guide/purchase.py:110
-#: tour_guide_bot/bot/guide/tours.py:109 tour_guide_bot/bot/guide/tours.py:417
-#: tour_guide_bot/bot/guide/tours.py:446
+#: tour_guide_bot/bot/guide/tours.py:111 tour_guide_bot/bot/guide/tours.py:496
+#: tour_guide_bot/bot/guide/tours.py:525
 #: tour_guide_bot/helpers/language_selector.py:129
 #: tour_guide_bot/helpers/payment_provider_selector.py:130
 #: tour_guide_bot/helpers/product_selector.py:149
@@ -262,7 +262,7 @@ msgstr "Вы уверены, что хотите отозвать доступ �
 #: tour_guide_bot/bot/admin/configure/protect_content.py:75
 #: tour_guide_bot/bot/admin/configure/protect_content.py:99
 #: tour_guide_bot/bot/admin/revoke.py:221
-#: tour_guide_bot/bot/admin/tour/add_content.py:678
+#: tour_guide_bot/bot/admin/tour/add_content.py:690
 #: tour_guide_bot/bot/admin/tour/delete.py:80
 #: tour_guide_bot/bot/admin/tour/pricing/delete.py:138
 msgctxt "bot-generic"
@@ -583,155 +583,160 @@ msgctxt "admin-tour"
 msgid "Please select the language for the new tour."
 msgstr "Пожалуйста, выберите язык для новой экскурсии."
 
-#: tour_guide_bot/bot/admin/tour/add_content.py:140
+#: tour_guide_bot/bot/admin/tour/add_content.py:141
 #: tour_guide_bot/helpers/telegram.py:54
 msgctxt "bot-generic"
 msgid "Cancelled."
 msgstr "Отменено."
 
-#: tour_guide_bot/bot/admin/tour/add_content.py:240
+#: tour_guide_bot/bot/admin/tour/add_content.py:241
 msgctxt "admin-tours"
 msgid "The text was added to the section!"
 msgstr "Текст был добавлен в раздел!"
 
-#: tour_guide_bot/bot/admin/tour/add_content.py:244
-#: tour_guide_bot/bot/admin/tour/add_content.py:265
-#: tour_guide_bot/bot/admin/tour/add_content.py:288
-#: tour_guide_bot/bot/admin/tour/add_content.py:315
-#: tour_guide_bot/bot/admin/tour/add_content.py:341
-#: tour_guide_bot/bot/admin/tour/add_content.py:637
-#: tour_guide_bot/bot/admin/tour/add_content.py:732
-#: tour_guide_bot/bot/admin/tour/add_content.py:772
+#: tour_guide_bot/bot/admin/tour/add_content.py:245
+#: tour_guide_bot/bot/admin/tour/add_content.py:266
+#: tour_guide_bot/bot/admin/tour/add_content.py:289
+#: tour_guide_bot/bot/admin/tour/add_content.py:316
+#: tour_guide_bot/bot/admin/tour/add_content.py:342
+#: tour_guide_bot/bot/admin/tour/add_content.py:649
+#: tour_guide_bot/bot/admin/tour/add_content.py:744
+#: tour_guide_bot/bot/admin/tour/add_content.py:784
 msgctxt "admin-tours"
 msgid "Add more data or send /done if you're finished with the section."
 msgstr "Добавьте больше данных или отправьте /done если вы закончили раздел."
 
-#: tour_guide_bot/bot/admin/tour/add_content.py:261
+#: tour_guide_bot/bot/admin/tour/add_content.py:262
 msgctxt "admin-tours"
 msgid "The animation was added to the section!"
 msgstr "Анимация была добавлена в раздел!"
 
-#: tour_guide_bot/bot/admin/tour/add_content.py:284
+#: tour_guide_bot/bot/admin/tour/add_content.py:285
 msgctxt "admin-tours"
 msgid "The location was added to the section!"
 msgstr "Локация была добавлена в раздел!"
 
-#: tour_guide_bot/bot/admin/tour/add_content.py:311
+#: tour_guide_bot/bot/admin/tour/add_content.py:312
 msgctxt "admin-tours"
 msgid "The voice was added to the section!"
 msgstr "Голосовое сообщение было добавлено в раздел!"
 
-#: tour_guide_bot/bot/admin/tour/add_content.py:337
+#: tour_guide_bot/bot/admin/tour/add_content.py:338
 msgctxt "admin-tours"
 msgid "The video note was added to the section!"
 msgstr "Видео заметка была добавлена в раздел!"
 
-#: tour_guide_bot/bot/admin/tour/add_content.py:359
+#: tour_guide_bot/bot/admin/tour/add_content.py:360
 msgctxt "admin-tours"
 msgid "Something went wrong when I tried to download your audio (see the details in the logs). What should I do now?"
 msgstr "Что-то пошло не так, когда я пытался загрузить звук (проверьте подробности в логах). Что мне делать сейчас?"
 
-#: tour_guide_bot/bot/admin/tour/add_content.py:369
-#: tour_guide_bot/bot/admin/tour/add_content.py:426
-#: tour_guide_bot/bot/admin/tour/add_content.py:505
+#: tour_guide_bot/bot/admin/tour/add_content.py:370
+#: tour_guide_bot/bot/admin/tour/add_content.py:427
+#: tour_guide_bot/bot/admin/tour/add_content.py:517
 msgctxt "bot-generic"
 msgid "Try again"
 msgstr "Попробовать снова"
 
-#: tour_guide_bot/bot/admin/tour/add_content.py:376
-#: tour_guide_bot/bot/admin/tour/add_content.py:433
-#: tour_guide_bot/bot/admin/tour/add_content.py:474
-#: tour_guide_bot/bot/admin/tour/add_content.py:512
+#: tour_guide_bot/bot/admin/tour/add_content.py:377
+#: tour_guide_bot/bot/admin/tour/add_content.py:434
+#: tour_guide_bot/bot/admin/tour/add_content.py:475
+#: tour_guide_bot/bot/admin/tour/add_content.py:524
 msgctxt "admin-tours"
 msgid "Store the original audio"
 msgstr "Сохранить оригинальную аудиозапись"
 
-#: tour_guide_bot/bot/admin/tour/add_content.py:393
+#: tour_guide_bot/bot/admin/tour/add_content.py:394
 msgctxt "admin-tours"
 msgid "File downloaded, converting..."
 msgstr "Файл загружен, конвертируется..."
 
-#: tour_guide_bot/bot/admin/tour/add_content.py:416
+#: tour_guide_bot/bot/admin/tour/add_content.py:417
 msgctxt "admin-tours"
 msgid "Something went wrong when I tried to convert the file. What should I do now?"
 msgstr "Что-то пошло не так при попытке конвертировать файл. Что мне сделать сейчас?"
 
-#: tour_guide_bot/bot/admin/tour/add_content.py:452
+#: tour_guide_bot/bot/admin/tour/add_content.py:453
 msgctxt "admin-tours"
 msgid "File converted, uploading..."
 msgstr "Файл сконвертирован, загружается..."
 
-#: tour_guide_bot/bot/admin/tour/add_content.py:466
+#: tour_guide_bot/bot/admin/tour/add_content.py:467
 msgctxt "bot-generic"
 msgid "Store the voice message"
 msgstr "Сохранить голосовое сообщение"
 
-#: tour_guide_bot/bot/admin/tour/add_content.py:495
+#: tour_guide_bot/bot/admin/tour/add_content.py:493
+msgctxt "admin-tours"
+msgid "I can't send you the voice message because your privacy settings block voice messages. Allow them for this bot in Settings → Privacy and Security → Voice Messages and try again, or store the original audio."
+msgstr "Я не могу отправить вам голосовое сообщение, потому что ваши настройки конфиденциальности запрещают голосовые сообщения. Разрешите их для этого бота в разделе Настройки → Конфиденциальность → Голосовые сообщения и попробуйте снова, или сохраните оригинальную аудиозапись."
+
+#: tour_guide_bot/bot/admin/tour/add_content.py:505
 msgctxt "admin-tours"
 msgid "Something went wrong when I tried to upload the file. What should I do now?"
 msgstr "Что-то пошло не так при попытке загрузить файл. Что мне сделать сейчас?"
 
-#: tour_guide_bot/bot/admin/tour/add_content.py:532
+#: tour_guide_bot/bot/admin/tour/add_content.py:544
 msgctxt "admin-tours"
 msgid "The audio was converted successfully. Please check the quality and decide what do you want to do with it."
 msgstr "Аудио было успешно сконвертировано. Пожалуйста, проверьте качество и решите, что вы хотите сделать с ним дальше."
 
-#: tour_guide_bot/bot/admin/tour/add_content.py:561
+#: tour_guide_bot/bot/admin/tour/add_content.py:573
 msgctxt "admin-tours"
 msgid "Starting the audio conversion process..."
 msgstr "Запускается процесс конвертации аудиозаписи..."
 
-#: tour_guide_bot/bot/admin/tour/add_content.py:619
+#: tour_guide_bot/bot/admin/tour/add_content.py:631
 msgctxt "admin-tours"
 msgid "Audio-to-voice conversion suggestions have been disabled. You can enabled them again using /configure command in the admin mode."
 msgstr "Конвертация аудиозаписей в голосовые сообщения отключена. Вы можете включить её снова с помощью команды /configure в режиме администратора."
 
-#: tour_guide_bot/bot/admin/tour/add_content.py:633
+#: tour_guide_bot/bot/admin/tour/add_content.py:645
 msgctxt "admin-tours"
 msgid "The audio was added to the section!"
 msgstr "Аудио-файл был добавлен в раздел!"
 
-#: tour_guide_bot/bot/admin/tour/add_content.py:644
+#: tour_guide_bot/bot/admin/tour/add_content.py:656
 msgctxt "admin-tours"
 msgid "Please wait until all audios in the group are uploaded before proceeding to the next section."
 msgstr "Пожалуйста, дождитесь загрузки всех аудиофайлов в группе, прежде чем перейти к следующему разделу."
 
-#: tour_guide_bot/bot/admin/tour/add_content.py:671
+#: tour_guide_bot/bot/admin/tour/add_content.py:683
 msgctxt "admin-tours"
 msgid "Would you like to convert this audio file to a voice message?"
 msgstr "Вы хотите преобразовать эту аудиозапись в голосовое сообщение?"
 
-#: tour_guide_bot/bot/admin/tour/add_content.py:682
+#: tour_guide_bot/bot/admin/tour/add_content.py:694
 msgctxt "bot-generic"
 msgid "No"
 msgstr "Нет"
 
-#: tour_guide_bot/bot/admin/tour/add_content.py:689
+#: tour_guide_bot/bot/admin/tour/add_content.py:701
 msgctxt "admin-tours"
 msgid "No, and do not ask again."
 msgstr "Нет, и не спрашивать снова."
 
-#: tour_guide_bot/bot/admin/tour/add_content.py:728
+#: tour_guide_bot/bot/admin/tour/add_content.py:740
 msgctxt "admin-tours"
 msgid "The video was added to the section!"
 msgstr "Видео было добавлено в раздел!"
 
-#: tour_guide_bot/bot/admin/tour/add_content.py:739
+#: tour_guide_bot/bot/admin/tour/add_content.py:751
 msgctxt "admin-tours"
 msgid "Please wait until all videos in the group are uploaded before proceeding to the next section."
 msgstr "Пожалуйста, дождитесь загрузки всех видео в группе, прежде чем перейти к следующему разделу."
 
-#: tour_guide_bot/bot/admin/tour/add_content.py:768
+#: tour_guide_bot/bot/admin/tour/add_content.py:780
 msgctxt "admin-tours"
 msgid "The photo was added to the section!"
 msgstr "Фотография была добавлена в раздел!"
 
-#: tour_guide_bot/bot/admin/tour/add_content.py:779
+#: tour_guide_bot/bot/admin/tour/add_content.py:791
 msgctxt "admin-tours"
 msgid "Please wait until all photos in the group are uploaded before proceeding to the next section."
 msgstr "Пожалуйста, дождитесь загрузки всех фотографий в группе, прежде чем перейти к следующему разделу."
 
-#: tour_guide_bot/bot/admin/tour/add_content.py:791
+#: tour_guide_bot/bot/admin/tour/add_content.py:803
 msgctxt "admin-tours"
 msgid "Unsupported message! Please send me one of the following to add to the tour section: location, text, photo, audio, video, animation, voice or video note."
 msgstr "Неподдерживаемое сообщение! Только следующие сообщения можно добавить в экскурсии: локация, текст, фото, аудио, видео, анимация, голосовое сообщение или видео заметка."
@@ -1060,7 +1065,7 @@ msgstr[1] "Вам доступны {0} экскурсии; спасибо за �
 msgstr[2] "Вам доступны {0} экскурсий; спасибо за поддержку! Отправьте /tours чтобы начать изучение."
 msgstr[3] "Вам доступны {0} экскурсии; спасибо за поддержку! Отправьте /tours чтобы начать изучение."
 
-#: tour_guide_bot/bot/guide/start.py:152 tour_guide_bot/bot/guide/tours.py:520
+#: tour_guide_bot/bot/guide/start.py:152 tour_guide_bot/bot/guide/tours.py:599
 msgctxt "guest-tour"
 msgid "Unfortunately, no tours are available for you at the moment. Approving somebody for a tour takes a while, but if you feel like a mistake was made, don't hesitate to contact me! The bot's profile should provide all the required info."
 msgstr "К сожалению, в данный момент у вас нет ни одной экскурсии. Одобрение кого-нибудь для экскурсии занимает некоторое время, но если вы чувствуете, что произошла ошибка, не стесняйтесь связаться со мной! В профиле бота должна быть вся необходимая информация."
@@ -1075,51 +1080,56 @@ msgctxt "guest-bot-start"
 msgid "I don't recognize you! Please send me your phone number."
 msgstr "Я вас не узнаю! Пожалуйста, отправьте мне ваш номер телефона."
 
-#: tour_guide_bot/bot/guide/tours.py:354
+#: tour_guide_bot/bot/guide/tours.py:221
+msgctxt "guide-tour"
+msgid "Your privacy settings block voice messages, so some parts of the tour can't be shown properly. To fix this, allow voice messages for this bot in Settings → Privacy and Security → Voice Messages."
+msgstr "Ваши настройки конфиденциальности запрещают голосовые сообщения, поэтому некоторые материалы экскурсии не могут быть показаны как следует. Чтобы это исправить, разрешите голосовые сообщения для этого бота в разделе Настройки → Конфиденциальность → Голосовые сообщения."
+
+#: tour_guide_bot/bot/guide/tours.py:433
 msgctxt "guide-tour"
 msgid "Are you ready to continue?"
 msgstr "Вы готовы продолжить?"
 
-#: tour_guide_bot/bot/guide/tours.py:359
+#: tour_guide_bot/bot/guide/tours.py:438
 msgctxt "guide-tour"
 msgid "Next section"
 msgstr "Следующий раздел"
 
-#: tour_guide_bot/bot/guide/tours.py:400
+#: tour_guide_bot/bot/guide/tours.py:479
 #, python-brace-format
 msgctxt "cli"
 msgid "Tour #{0} doesn't have a language {1} preferred by the user {2}."
 msgstr "Экскурсия #{0} не имеет языка {1} предпочитаемого пользователем {2}."
 
-#: tour_guide_bot/bot/guide/tours.py:409
+#: tour_guide_bot/bot/guide/tours.py:488
 #, python-brace-format
 msgctxt "cli"
 msgid "Tour #{0} doesn't have a default app language {1}."
 msgstr "Экскурсия #{0} не имеет языка приложения по умолчанию {1}."
 
-#: tour_guide_bot/bot/guide/tours.py:458
+#: tour_guide_bot/bot/guide/tours.py:537
 msgctxt "guide-tour"
 msgid "Unfortunately, you don't have access to the requested tour."
 msgstr "К сожалению, у вас нет доступа к запрошенной экскурсии."
 
-#: tour_guide_bot/bot/guide/tours.py:482
+#: tour_guide_bot/bot/guide/tours.py:561
 #, python-brace-format
 msgctxt "guest-tour"
 msgid "Only one tour is available for you: {}."
 msgstr "Вам доступна только одна экскурсия: {}."
 
-#: tour_guide_bot/bot/guide/tours.py:492
+#: tour_guide_bot/bot/guide/tours.py:571
 #, python-brace-format
 msgctxt "guest-tour"
 msgid "You have selected the tour {}."
 msgstr "Вы выбрали экскурсию {}."
 
-#: tour_guide_bot/bot/guide/tours.py:500
+#: tour_guide_bot/bot/guide/tours.py:579
 msgctxt "guest-tour"
 msgid "Now the bot will send you several messages, please start the tour with the following one 👇"
 msgstr "Сейчас бот отправит вам несколько сообщений, пожалуйста, начните экскурсию с первого👇"
 
-#: tour_guide_bot/bot/guide/tours.py:511
+#: tour_guide_bot/bot/guide/tours.py:590
 msgctxt "guide-tour"
 msgid "Please select a tour you want to start."
 msgstr "Пожалуйста, выберите экскурсию, которую вы хотите начать."
@@ -1269,32 +1279,3 @@ msgctxt "web-generic"
 msgid "Payment settings"
 msgstr "Настройки оплаты"
 
-#: tour_guide_bot/bot/admin/configure/protect_content.py:24
-msgctxt "admin-configure"
-msgid "Content protection"
-msgstr "Защита контента"
-
-#: tour_guide_bot/bot/admin/configure/protect_content.py:66
-msgctxt "admin-configure"
-msgid "Content protection is currently *enabled*\\. Guests can neither forward nor save tour content \\(and, in some Telegram apps, take screenshots of it\\)\\. The change applies only to messages sent from now on\\. Would you like to disable it?"
-msgstr "Защита контента *включена*\\. Гости не могут пересылать и сохранять материалы экскурсий \\(а в некоторых приложениях Telegram — и делать скриншоты\\)\\. Изменение применяется только к сообщениям, отправленным с этого момента\\. Хотите выключить?"
-
-#: tour_guide_bot/bot/admin/configure/protect_content.py:90
-msgctxt "admin-configure"
-msgid "Content protection is currently *disabled*\\. Guests can forward and save tour content \\(and take screenshots of it\\)\\. Enabling it prevents this, but applies only to messages sent from now on\\. Would you like to enable it?"
-msgstr "Защита контента *выключена*\\. Гости могут пересылать и сохранять материалы экскурсий \\(и делать скриншоты\\)\\. Включение защиты запретит это, но применится только к сообщениям, отправленным с этого момента\\. Хотите включить?"
-
-#: tour_guide_bot/bot/admin/configure/protect_content.py:133
-msgctxt "admin-configure"
-msgid "Content protection was enabled."
-msgstr "Защита контента включена."
-
-#: tour_guide_bot/bot/admin/configure/protect_content.py:140
-msgctxt "admin-configure"
-msgid "Content protection was disabled."
-msgstr "Защита контента выключена."
-
-#: tour_guide_bot/web/templates/admin/configuration.html:27
-msgctxt "web-generic"
-msgid "Protect tour content from forwarding and saving"
-msgstr "Защищать материалы экскурсий от пересылки и сохранения"
