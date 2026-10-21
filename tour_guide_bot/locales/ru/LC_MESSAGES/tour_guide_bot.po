@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2026-10-20 22:58\n"
+"PO-Revision-Date: 2026-10-21 08:12\n"
 
 #: tour_guide_bot/cli.py:65
 msgctxt "cli"
@@ -136,7 +136,7 @@ msgstr "К сожалению, у вас нет ни одной экскурси
 #: tour_guide_bot/bot/admin/tour/add_content.py:531
 #: tour_guide_bot/bot/admin/tour/delete.py:84
 #: tour_guide_bot/bot/admin/tour/pricing/delete.py:142
-#: tour_guide_bot/bot/guide/tours.py:408
+#: tour_guide_bot/bot/guide/tours.py:445
 #: tour_guide_bot/helpers/language_selector.py:81
 #: tour_guide_bot/helpers/payment_provider_selector.py:95
 #: tour_guide_bot/helpers/product_selector.py:116
@@ -224,8 +224,8 @@ msgstr "Вы можете использовать следующие коман
 #: tour_guide_bot/bot/admin/tour/pricing/delete.py:168
 #: tour_guide_bot/bot/guide/purchase.py:96
 #: tour_guide_bot/bot/guide/purchase.py:110
-#: tour_guide_bot/bot/guide/tours.py:111 tour_guide_bot/bot/guide/tours.py:459
-#: tour_guide_bot/bot/guide/tours.py:488
+#: tour_guide_bot/bot/guide/tours.py:111 tour_guide_bot/bot/guide/tours.py:496
+#: tour_guide_bot/bot/guide/tours.py:525
 #: tour_guide_bot/helpers/language_selector.py:129
 #: tour_guide_bot/helpers/payment_provider_selector.py:130
 #: tour_guide_bot/helpers/product_selector.py:149
@@ -669,7 +669,7 @@ msgstr "Сохранить голосовое сообщение"
 #: tour_guide_bot/bot/admin/tour/add_content.py:493
 msgctxt "admin-tours"
 msgid "I can't send you the voice message because your privacy settings block voice messages. Allow them for this bot in Settings → Privacy and Security → Voice Messages and try again, or store the original audio."
-msgstr ""
+msgstr "Я не могу отправить вам голосовое сообщение, потому что ваши настройки конфиденциальности запрещают голосовые сообщения. Разрешите их для этого бота в разделе Настройки → Конфиденциальность → Голосовые сообщения и попробуйте снова, или сохраните оригинальную аудиозапись."
 
 #: tour_guide_bot/bot/admin/tour/add_content.py:505
 msgctxt "admin-tours"
@@ -1065,7 +1065,7 @@ msgstr[1] "Вам доступны {0} экскурсии; спасибо за �
 msgstr[2] "Вам доступны {0} экскурсий; спасибо за поддержку! Отправьте /tours чтобы начать изучение."
 msgstr[3] "Вам доступны {0} экскурсии; спасибо за поддержку! Отправьте /tours чтобы начать изучение."
 
-#: tour_guide_bot/bot/guide/start.py:152 tour_guide_bot/bot/guide/tours.py:562
+#: tour_guide_bot/bot/guide/start.py:152 tour_guide_bot/bot/guide/tours.py:599
 msgctxt "guest-tour"
 msgid "Unfortunately, no tours are available for you at the moment. Approving somebody for a tour takes a while, but if you feel like a mistake was made, don't hesitate to contact me! The bot's profile should provide all the required info."
 msgstr "К сожалению, в данный момент у вас нет ни одной экскурсии. Одобрение кого-нибудь для экскурсии занимает некоторое время, но если вы чувствуете, что произошла ошибка, не стесняйтесь связаться со мной! В профиле бота должна быть вся необходимая информация."
@@ -1080,51 +1080,56 @@ msgctxt "guest-bot-start"
 msgid "I don't recognize you! Please send me your phone number."
 msgstr "Я вас не узнаю! Пожалуйста, отправьте мне ваш номер телефона."
 
-#: tour_guide_bot/bot/guide/tours.py:396
+#: tour_guide_bot/bot/guide/tours.py:221
+msgctxt "guide-tour"
+msgid "Your privacy settings block voice messages, so some parts of the tour can't be shown properly. To fix this, allow voice messages for this bot in Settings → Privacy and Security → Voice Messages."
+msgstr ""
+
+#: tour_guide_bot/bot/guide/tours.py:433
 msgctxt "guide-tour"
 msgid "Are you ready to continue?"
 msgstr "Вы готовы продолжить?"
 
-#: tour_guide_bot/bot/guide/tours.py:401
+#: tour_guide_bot/bot/guide/tours.py:438
 msgctxt "guide-tour"
 msgid "Next section"
 msgstr "Следующий раздел"
 
-#: tour_guide_bot/bot/guide/tours.py:442
+#: tour_guide_bot/bot/guide/tours.py:479
 #, python-brace-format
 msgctxt "cli"
 msgid "Tour #{0} doesn't have a language {1} preferred by the user {2}."
 msgstr "Экскурсия #{0} не имеет языка {1} предпочитаемого пользователем {2}."
 
-#: tour_guide_bot/bot/guide/tours.py:451
+#: tour_guide_bot/bot/guide/tours.py:488
 #, python-brace-format
 msgctxt "cli"
 msgid "Tour #{0} doesn't have a default app language {1}."
 msgstr "Экскурсия #{0} не имеет языка приложения по умолчанию {1}."
 
-#: tour_guide_bot/bot/guide/tours.py:500
+#: tour_guide_bot/bot/guide/tours.py:537
 msgctxt "guide-tour"
 msgid "Unfortunately, you don't have access to the requested tour."
 msgstr "К сожалению, у вас нет доступа к запрошенной экскурсии."
 
-#: tour_guide_bot/bot/guide/tours.py:524
+#: tour_guide_bot/bot/guide/tours.py:561
 #, python-brace-format
 msgctxt "guest-tour"
 msgid "Only one tour is available for you: {}."
 msgstr "Вам доступна только одна экскурсия: {}."
 
-#: tour_guide_bot/bot/guide/tours.py:534
+#: tour_guide_bot/bot/guide/tours.py:571
 #, python-brace-format
 msgctxt "guest-tour"
 msgid "You have selected the tour {}."
 msgstr "Вы выбрали экскурсию {}."
 
-#: tour_guide_bot/bot/guide/tours.py:542
+#: tour_guide_bot/bot/guide/tours.py:579
 msgctxt "guest-tour"
 msgid "Now the bot will send you several messages, please start the tour with the following one 👇"
 msgstr "Сейчас бот отправит вам несколько сообщений, пожалуйста, начните экскурсию с первого👇"
 
-#: tour_guide_bot/bot/guide/tours.py:553
+#: tour_guide_bot/bot/guide/tours.py:590
 msgctxt "guide-tour"
 msgid "Please select a tour you want to start."
 msgstr "Пожалуйста, выберите экскурсию, которую вы хотите начать."
