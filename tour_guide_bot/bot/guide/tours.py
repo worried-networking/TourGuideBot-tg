@@ -190,6 +190,45 @@ class ToursCommandHandler(SelectTourHandler):
         file = await bot.get_file(file_id)
         return InputFile(bytes(await file.download_as_bytearray()), filename=filename)
 
+    @classmethod
+    async def send_blocked_file(
+        cls,
+        bot,
+        chat_id: int,
+        file_id: str,
+        filename: str,
+        caption: str | None,
+        protect_content: bool,
+        language: str,
+        explain: bool,
+    ) -> bool:
+        # Telegram turns Opus audio back into a voice message (and an mp4 back
+        # into a video note), so send the bare file without the content type
+        # detection, and explain why it isn't played.
+        await bot.send_document(
+            chat_id,
+            await cls.reupload(bot, file_id, filename),
+            caption=caption,
+            parse_mode=ParseMode.MARKDOWN_V2,
+            disable_content_type_detection=True,
+            disable_notification=True,
+            protect_content=protect_content,
+        )
+        if explain:
+            await bot.send_message(
+                chat_id,
+                t(language).pgettext(
+                    "guide-tour",
+                    "Your privacy settings block voice messages, so some parts of "
+                    "the tour can't be shown properly. To fix this, allow voice "
+                    "messages for this bot in Settings → Privacy and Security → "
+                    "Voice Messages.",
+                ),
+                disable_notification=True,
+            )
+
+        return True
+
     async def send_section(
         self,
         update: Update,
@@ -205,6 +244,8 @@ class ToursCommandHandler(SelectTourHandler):
     ):
         # Runs as a background task: must not touch self.db_session.
         bot = context.bot
+        # Explain the blocked voice messages only once per section
+        voice_messages_blocked = False
 
         for message_type, content_data in contents:
             chat_action = ChatAction.TYPING
@@ -268,17 +309,16 @@ class ToursCommandHandler(SelectTourHandler):
                         if e.message != "Voice_messages_forbidden":
                             raise
 
-                        # The user's privacy settings block voice messages. A
-                        # voice file_id can't be sent as audio, so re-upload it.
-                        await bot.send_audio(
+                        # The user's privacy settings block voice messages
+                        voice_messages_blocked = await self.send_blocked_file(
+                            bot,
                             chat_id,
-                            await self.reupload(
-                                bot, content_data["files"][0]["file_id"], "voice.ogg"
-                            ),
-                            caption=content_data["files"][0].get("caption"),
-                            parse_mode=ParseMode.MARKDOWN_V2,
-                            disable_notification=True,
-                            protect_content=protect_content,
+                            content_data["files"][0]["file_id"],
+                            "voice.ogg",
+                            content_data["files"][0].get("caption"),
+                            protect_content,
+                            language,
+                            explain=not voice_messages_blocked,
                         )
 
                 case MessageType.video_note:
@@ -286,8 +326,6 @@ class ToursCommandHandler(SelectTourHandler):
                         await bot.send_video_note(
                             chat_id,
                             content_data["files"][0]["file_id"],
-                            caption=content_data["files"][0].get("caption"),
-                            parse_mode=ParseMode.MARKDOWN_V2,
                             disable_notification=True,
                             protect_content=protect_content,
                         )
@@ -295,17 +333,16 @@ class ToursCommandHandler(SelectTourHandler):
                         if e.message != "Voice_messages_forbidden":
                             raise
 
-                        # The same privacy setting blocks video notes; send the
-                        # file as a regular video instead.
-                        await bot.send_video(
+                        # The same privacy setting blocks video notes
+                        voice_messages_blocked = await self.send_blocked_file(
+                            bot,
                             chat_id,
-                            await self.reupload(
-                                bot, content_data["files"][0]["file_id"], "video.mp4"
-                            ),
-                            caption=content_data["files"][0].get("caption"),
-                            parse_mode=ParseMode.MARKDOWN_V2,
-                            disable_notification=True,
-                            protect_content=protect_content,
+                            content_data["files"][0]["file_id"],
+                            "video.mp4",
+                            None,
+                            protect_content,
+                            language,
+                            explain=not voice_messages_blocked,
                         )
 
                 case MessageType.audio:
