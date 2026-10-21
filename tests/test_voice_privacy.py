@@ -12,6 +12,7 @@ from telethon.tl.types import (
     InputPrivacyValueAllowAll,
     InputPrivacyValueAllowUsers,
     InputPrivacyValueDisallowAll,
+    MessageEntityItalic,
 )
 
 from tour_guide_bot.bot.app import Application
@@ -173,6 +174,12 @@ async def test_guest_blocking_voice_messages_gets_files_and_explanation(
 
     response = await conversation.get_response()
     assert "privacy settings block voice messages" in response.message
+    assert [type(entity) for entity in response.entities or []] == [
+        MessageEntityItalic
+    ], "Expected the explanation to be in italics"
+    assert [type(entity) for entity in response.entities or []] == [
+        MessageEntityItalic
+    ], "Expected the explanation to be in italics"
 
     response = await conversation.get_response(timeout=30)
     assert response.video_note is None, "Expected a bare file instead of the video note"

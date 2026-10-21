@@ -1,3 +1,4 @@
+import html
 from asyncio import Task, sleep
 from datetime import datetime
 from typing import Sequence
@@ -215,15 +216,18 @@ class ToursCommandHandler(SelectTourHandler):
             protect_content=protect_content,
         )
         if explain:
+            # Italic, to set the bot's own note apart from the tour content
+            explanation = t(language).pgettext(
+                "guide-tour",
+                "Your privacy settings block voice messages, so some parts of "
+                "the tour can't be shown properly. To fix this, allow voice "
+                "messages for this bot in Settings → Privacy and Security → "
+                "Voice Messages.",
+            )
             await bot.send_message(
                 chat_id,
-                t(language).pgettext(
-                    "guide-tour",
-                    "Your privacy settings block voice messages, so some parts of "
-                    "the tour can't be shown properly. To fix this, allow voice "
-                    "messages for this bot in Settings → Privacy and Security → "
-                    "Voice Messages.",
-                ),
+                "<i>%s</i>" % html.escape(explanation),
+                parse_mode=ParseMode.HTML,
                 disable_notification=True,
             )
 
