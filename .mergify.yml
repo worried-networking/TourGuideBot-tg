@@ -16,7 +16,9 @@ pull_request_rules:
       - or:
         - "#approved-reviews-by>=1"
         - "author=dependabot[bot]"
-      - check-success=Run tests (3.12, ubuntu-latest)
+      # Any Python version from the tests matrix, so a version bump doesn't stall the queue
+      - check-success~=^Run tests \(
+      - -check-failure~=^Run tests \(
     actions:
       queue:
         name: default
