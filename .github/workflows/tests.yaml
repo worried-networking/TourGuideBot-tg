@@ -22,7 +22,12 @@ jobs:
   tests:
     name: Run tests
 
-    if: "!github.event.pull_request_target || contains(github.event.pull_request_target.labels.*.name, 'S-Run-Protected-Tests')"
+    # Crowdin PRs only change translations, main runs the tests after the merge
+    if: >-
+      github.event_name != 'pull_request_target'
+      || ((github.head_ref != 'l10n_main'
+           || github.event.pull_request.head.repo.full_name != github.repository)
+          && contains(github.event.pull_request.labels.*.name, 'S-Run-Protected-Tests'))
 
     strategy:
       fail-fast: false
