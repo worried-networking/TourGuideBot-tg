@@ -10,80 +10,80 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
-"PO-Revision-Date: 2026-10-21 08:23\n"
+"PO-Revision-Date: 2026-10-21 13:19\n"
 
-#: tour_guide_bot/cli.py:65
+#: tour_guide_bot/cli.py:66
 msgctxt "cli"
 msgid "Tour Guide bot [telegram]"
 msgstr "Tour Guide bot [telegram]"
 
-#: tour_guide_bot/cli.py:70
+#: tour_guide_bot/cli.py:71
 msgctxt "cli"
 msgid "Enable debug logging."
 msgstr "Включить отладочное логирование."
 
-#: tour_guide_bot/cli.py:75
+#: tour_guide_bot/cli.py:76
 msgctxt "cli"
 msgid "Comma-separated list of available languages."
 msgstr "Список доступных языков, разделённый запятыми."
 
-#: tour_guide_bot/cli.py:83
+#: tour_guide_bot/cli.py:84
 msgctxt "cli"
 msgid "Default language. If not provided, will be set to the first enabled language."
 msgstr "Язык по умолчанию. Если он не указан, будет установлен на первый активированный язык."
 
-#: tour_guide_bot/cli.py:92
+#: tour_guide_bot/cli.py:93
 msgctxt "cli"
 msgid "Telegram Bot token for the Guide Bot."
 msgstr "Токен Telegram-бота для бота-гида."
 
-#: tour_guide_bot/cli.py:98
+#: tour_guide_bot/cli.py:99
 msgctxt "cli"
 msgid "SQLAlchemy engine URL"
 msgstr "параметры доступа к БД в формате SQLAlchemy engine URL."
 
-#: tour_guide_bot/cli.py:104
+#: tour_guide_bot/cli.py:105
 msgctxt "cli"
 msgid "Enable HTTP server."
 msgstr "Активировать HTTP-сервер."
 
-#: tour_guide_bot/cli.py:109
+#: tour_guide_bot/cli.py:110
 msgctxt "cli"
 msgid "HTTP-server host."
 msgstr "Адрес HTTP-сервера."
 
-#: tour_guide_bot/cli.py:115
+#: tour_guide_bot/cli.py:116
 msgctxt "cli"
 msgid "HTTP-server port."
 msgstr "Порт HTTP-сервера."
 
-#: tour_guide_bot/cli.py:121
+#: tour_guide_bot/cli.py:122
 msgctxt "cli"
 msgid "Cookie encryption key."
 msgstr "Ключ шифрования cookie."
 
-#: tour_guide_bot/cli.py:132
+#: tour_guide_bot/cli.py:133
 #, python-brace-format
 msgctxt "cli"
 msgid "You need to provide a cookie encryption key for the HTTP server to work. Please re-run the server providing argument --http-cookie-key='{}'"
 msgstr "Вам необходимо предоставить ключ шифрования cookie для работы HTTP-сервера. Пожалуйста, перезапустите сервер, предоставив аргумент --http-cookie-key='{}'"
 
-#: tour_guide_bot/cli.py:142
+#: tour_guide_bot/cli.py:143
 msgctxt "cli"
 msgid "the list of enabled languages must not be empty"
 msgstr "список включенных языков не должен быть пустым"
 
-#: tour_guide_bot/cli.py:151
+#: tour_guide_bot/cli.py:152
 msgctxt "cli"
 msgid "the default language must be in the list of enabled languages"
 msgstr "язык по умолчанию должен быть в списке доступных языков"
 
-#: tour_guide_bot/cli.py:244
+#: tour_guide_bot/cli.py:245
 msgctxt "cli"
 msgid "Up and runnig!"
 msgstr "Работаем!"
 
-#: tour_guide_bot/bot/app.py:109
+#: tour_guide_bot/bot/app.py:113
 #, python-brace-format
 msgctxt "guide-bot-notification"
 msgid "Hey! You have a new tour available — \"{0}\". Send /tours to start the journey!"
@@ -136,7 +136,7 @@ msgstr "К сожалению, у вас нет ни одной экскурси
 #: tour_guide_bot/bot/admin/tour/add_content.py:531
 #: tour_guide_bot/bot/admin/tour/delete.py:84
 #: tour_guide_bot/bot/admin/tour/pricing/delete.py:142
-#: tour_guide_bot/bot/guide/tours.py:445
+#: tour_guide_bot/bot/guide/tours.py:735
 #: tour_guide_bot/helpers/language_selector.py:81
 #: tour_guide_bot/helpers/payment_provider_selector.py:95
 #: tour_guide_bot/helpers/product_selector.py:116
@@ -224,8 +224,8 @@ msgstr "Вы можете использовать следующие коман
 #: tour_guide_bot/bot/admin/tour/pricing/delete.py:168
 #: tour_guide_bot/bot/guide/purchase.py:96
 #: tour_guide_bot/bot/guide/purchase.py:110
-#: tour_guide_bot/bot/guide/tours.py:111 tour_guide_bot/bot/guide/tours.py:496
-#: tour_guide_bot/bot/guide/tours.py:525
+#: tour_guide_bot/bot/guide/tours.py:158 tour_guide_bot/bot/guide/tours.py:783
+#: tour_guide_bot/bot/guide/tours.py:812
 #: tour_guide_bot/helpers/language_selector.py:129
 #: tour_guide_bot/helpers/payment_provider_selector.py:130
 #: tour_guide_bot/helpers/product_selector.py:149
@@ -752,13 +752,13 @@ msgctxt "admin-tours"
 msgid "Do you really want to delete the tour \"{0}\"?"
 msgstr "Вы действительно хотите удалить экскурсию \"{0}\"?"
 
-#: tour_guide_bot/bot/admin/tour/delete.py:125
+#: tour_guide_bot/bot/admin/tour/delete.py:132
 #, python-brace-format
 msgctxt "admin-tours"
 msgid "The tour \"{0}\" was removed."
 msgstr "Экскурсия \"{0}\" удалена."
 
-#: tour_guide_bot/bot/admin/tour/delete.py:132
+#: tour_guide_bot/bot/admin/tour/delete.py:139
 msgctxt "admin-tour"
 msgid "Please select the tour you want to delete."
 msgstr "Пожалуйста, выберите экскурсию, которую вы хотите удалить."
@@ -1065,7 +1065,7 @@ msgstr[1] "Вам доступны {0} экскурсии; спасибо за �
 msgstr[2] "Вам доступны {0} экскурсий; спасибо за поддержку! Отправьте /tours чтобы начать изучение."
 msgstr[3] "Вам доступны {0} экскурсии; спасибо за поддержку! Отправьте /tours чтобы начать изучение."
 
-#: tour_guide_bot/bot/guide/start.py:152 tour_guide_bot/bot/guide/tours.py:599
+#: tour_guide_bot/bot/guide/start.py:152 tour_guide_bot/bot/guide/tours.py:886
 msgctxt "guest-tour"
 msgid "Unfortunately, no tours are available for you at the moment. Approving somebody for a tour takes a while, but if you feel like a mistake was made, don't hesitate to contact me! The bot's profile should provide all the required info."
 msgstr "К сожалению, в данный момент у вас нет ни одной экскурсии. Одобрение кого-нибудь для экскурсии занимает некоторое время, но если вы чувствуете, что произошла ошибка, не стесняйтесь связаться со мной! В профиле бота должна быть вся необходимая информация."
@@ -1080,56 +1080,80 @@ msgctxt "guest-bot-start"
 msgid "I don't recognize you! Please send me your phone number."
 msgstr "Я вас не узнаю! Пожалуйста, отправьте мне ваш номер телефона."
 
-#: tour_guide_bot/bot/guide/tours.py:221
+#: tour_guide_bot/bot/guide/tours.py:291
+#, python-brace-format
+msgctxt "cli"
+msgid "Can't save the tour progress of the user {0}."
+msgstr ""
+
+#: tour_guide_bot/bot/guide/tours.py:444
 msgctxt "guide-tour"
 msgid "Your privacy settings block voice messages, so some parts of the tour can't be shown properly. To fix this, allow voice messages for this bot in Settings → Privacy and Security → Voice Messages."
 msgstr "Ваши настройки конфиденциальности запрещают голосовые сообщения, поэтому некоторые материалы экскурсии не могут быть показаны как следует. Чтобы это исправить, разрешите голосовые сообщения для этого бота в разделе Настройки → Конфиденциальность → Голосовые сообщения."
 
-#: tour_guide_bot/bot/guide/tours.py:433
+#: tour_guide_bot/bot/guide/tours.py:492
+#, python-brace-format
+msgctxt "cli"
+msgid "Can't send the tour to the user {0}."
+msgstr ""
+
+#: tour_guide_bot/bot/guide/tours.py:503
+#, python-brace-format
+msgctxt "cli"
+msgid "Can't send the part {0} of the section {1} of the tour translation {2}."
+msgstr ""
+
+#: tour_guide_bot/bot/guide/tours.py:521
+#, python-brace-format
+msgctxt "cli"
+msgid "Can't offer the next section to the user {0}."
+msgstr ""
+
+#: tour_guide_bot/bot/guide/tours.py:723
 msgctxt "guide-tour"
 msgid "Are you ready to continue?"
 msgstr "Вы готовы продолжить?"
 
-#: tour_guide_bot/bot/guide/tours.py:438
+#: tour_guide_bot/bot/guide/tours.py:728
 msgctxt "guide-tour"
 msgid "Next section"
 msgstr "Следующий раздел"
 
-#: tour_guide_bot/bot/guide/tours.py:479
+#: tour_guide_bot/bot/guide/tours.py:766
 #, python-brace-format
 msgctxt "cli"
 msgid "Tour #{0} doesn't have a language {1} preferred by the user {2}."
 msgstr "Экскурсия #{0} не имеет языка {1} предпочитаемого пользователем {2}."
 
-#: tour_guide_bot/bot/guide/tours.py:488
+#: tour_guide_bot/bot/guide/tours.py:775
 #, python-brace-format
 msgctxt "cli"
 msgid "Tour #{0} doesn't have a default app language {1}."
 msgstr "Экскурсия #{0} не имеет языка приложения по умолчанию {1}."
 
-#: tour_guide_bot/bot/guide/tours.py:537
+#: tour_guide_bot/bot/guide/tours.py:824
 msgctxt "guide-tour"
 msgid "Unfortunately, you don't have access to the requested tour."
 msgstr "К сожалению, у вас нет доступа к запрошенной экскурсии."
 
-#: tour_guide_bot/bot/guide/tours.py:561
+#: tour_guide_bot/bot/guide/tours.py:848
 #, python-brace-format
 msgctxt "guest-tour"
 msgid "Only one tour is available for you: {}."
 msgstr "Вам доступна только одна экскурсия: {}."
 
-#: tour_guide_bot/bot/guide/tours.py:571
+#: tour_guide_bot/bot/guide/tours.py:858
 #, python-brace-format
 msgctxt "guest-tour"
 msgid "You have selected the tour {}."
 msgstr "Вы выбрали экскурсию {}."
 
-#: tour_guide_bot/bot/guide/tours.py:579
+#: tour_guide_bot/bot/guide/tours.py:866
 msgctxt "guest-tour"
 msgid "Now the bot will send you several messages, please start the tour with the following one 👇"
 msgstr "Сейчас бот отправит вам несколько сообщений, пожалуйста, начните экскурсию с первого👇"
 
-#: tour_guide_bot/bot/guide/tours.py:590
+#: tour_guide_bot/bot/guide/tours.py:877
 msgctxt "guide-tour"
 msgid "Please select a tour you want to start."
 msgstr "Пожалуйста, выберите экскурсию, которую вы хотите начать."
@@ -1192,7 +1216,7 @@ msgctxt "bot-generic"
 msgid "No tours found."
 msgstr "Экскурсии не найдены."
 
-#: tour_guide_bot/models/guide.py:198
+#: tour_guide_bot/models/guide.py:199
 #, python-brace-format
 msgctxt "tours"
 msgid "{price} for {duration} day ({formatted_guests_count})"
@@ -1202,7 +1226,7 @@ msgstr[1] "{price} за {duration} дня ({formatted_guests_count})"
 msgstr[2] "{price} за {duration} дней ({formatted_guests_count})"
 msgstr[3] "{price} за {duration} дня ({formatted_guests_count})"
 
-#: tour_guide_bot/models/guide.py:208
+#: tour_guide_bot/models/guide.py:209
 #, python-brace-format
 msgctxt "tours"
 msgid "for {guests_count} guest"
